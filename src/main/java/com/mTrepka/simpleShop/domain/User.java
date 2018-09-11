@@ -15,10 +15,11 @@ public class User {
     @Column(name = "user_id")
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
     @Email
     @NotNull
-    private String email;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private EmailMap email;
     @NotNull
     private String password;
     @OneToOne(targetEntity = Adress.class)
@@ -47,16 +48,16 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getEmail() {
-        return email;
+        return email.getEmail();
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email.setEmail(email);
     }
 
     public String getPassword() {

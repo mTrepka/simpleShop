@@ -20,16 +20,11 @@ public class UserAspectController {
     @Autowired
     UserService userService;
 
-    @Before("execution(*  com.mTrepka.simpleShop.controller.AppRestController.*(..))")
-    void userRegistration(){
-        System.out.println("Test Aspect");
-    }
-
     void userLogin(HttpServletRequest request){
         UserLog log = new UserLog();
         log.setUser(userService.getCurrentUser());
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr());
+        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
         log.setDescription("User log in");
         log.setType("LOGIN");
     }
@@ -37,7 +32,7 @@ public class UserAspectController {
         UserLog log = new UserLog();
         log.setUser(userService.getCurrentUser());
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr());
+        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
         log.setDescription("User log out");
         log.setType("LOGOUT");
     }
@@ -45,7 +40,7 @@ public class UserAspectController {
         UserLog log = new UserLog();
         log.setUser(userService.getCurrentUser());
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr());
+        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
         log.setDescription("User buy order"+order.getId());
         log.setType("SHOPPING");
     }

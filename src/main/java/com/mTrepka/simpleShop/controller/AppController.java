@@ -1,5 +1,6 @@
 package com.mTrepka.simpleShop.controller;
 
+import com.mTrepka.simpleShop.dataAspect.RegistrationAspectController;
 import com.mTrepka.simpleShop.dataAspect.UserAspectController;
 import com.mTrepka.simpleShop.domain.User;
 import org.aspectj.lang.annotation.Before;
@@ -12,4 +13,6 @@ public class AppController {
     UserAspectController userAspectController(){
         return new UserAspectController();
     }
+    @Bean
+    RegistrationAspectController registrationAspectController(){return new RegistrationAspectController();}
 }

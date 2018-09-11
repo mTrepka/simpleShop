@@ -3,6 +3,7 @@ package com.mTrepka.simpleShop.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 public class UserLog {
@@ -63,7 +64,10 @@ public class UserLog {
 
     @Override
     public String toString() {
-        return "["+type+"]["+data.toString()+"]["+ip+"]["+getUser().getEmail()+"]"+description;
+        if(Objects.isNull(getUser()))
+        return "["+type+"]["+data.toString()+"]["+ip+"][System]"+description;
+        else
+            return "["+type+"]["+data.toString()+"]["+ip+"]["+getUser().getEmail()+"]"+description;
     }
 
     public void setUser(User user) {
