@@ -12,7 +12,7 @@ public interface ApplicationController {
     ModelAndView getRegister(HttpServletRequest request);
     ModelAndView postRegister(String email,HttpServletRequest request);
     ModelAndView getSecondPartRegister(String code,HttpServletRequest request);
-    ModelAndView postSecondPartRegister(@PathVariable("code") String code, String firstPass, String secondPass, HttpServletRequest request, String name, String lastName);
+    ModelAndView postSecondPartRegister(String code,  String firstPass, String secondPass, HttpServletRequest request, String name, String lastName);
     ModelAndView getLogout(HttpServletRequest request);
 
     ModelAndView getCart();

@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-                true, true, true, true, getGrantedAuthorities(user));
+                user.isActive(), true, true, true, getGrantedAuthorities(user));
     }
 
 
@@ -37,10 +37,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         for(Role userProfile : user.getRoles()){
-            System.out.println("UserProfile : "+userProfile);
             authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getRole()));
         }
-        System.out.print("authorities :"+authorities);
         return authorities;
     }
 }

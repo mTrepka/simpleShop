@@ -4,6 +4,7 @@ package com.mTrepka.simpleShop.controller;
 import com.mTrepka.simpleShop.domain.User;
 import com.mTrepka.simpleShop.service.UserService;
 import com.mTrepka.simpleShop.utility.CustomModel;
+import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,14 +51,20 @@ public class AppRestController implements ApplicationController{
     @Override
     @GetMapping("/register/{code}")
     public ModelAndView getSecondPartRegister(@PathVariable("code") String code,HttpServletRequest request) {
-        return CustomModel.getCustomModelAndView("index");
+        return CustomModel.getCustomModelAndView("registerCode")
+                .addObject("code",code);
     }
 
     @Override
-    @PostMapping("/register/{code}")
-    public ModelAndView postSecondPartRegister(@PathVariable("code") String code,String firstPass, String secondPass,HttpServletRequest request,String name,String lastName) {
+    @PostMapping("/register/")
+    public ModelAndView postSecondPartRegister(String code, String firstPass, String secondPass,HttpServletRequest request,String name,String lastName) {
+        String info;
+        if(userService.registerUser(firstPass, secondPass, name, lastName, code))
+           info = "Uzytkownik zarejestrowany, można się zalogowac.";
+        else
+            info = "Zły kod";
         return CustomModel.getCustomModelAndView("info")
-                .addObject("info","Użytkownik został zarejestrowany.");
+                .addObject("info",info);
     }
 
     @Override

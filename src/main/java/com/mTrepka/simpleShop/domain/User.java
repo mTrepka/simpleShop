@@ -16,18 +16,43 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
-    @Email
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private EmailMap email;
-    @NotNull
+    private String email;
+    private String code;
     private String password;
+    private String name;
+    private String lastName;
     @OneToOne(targetEntity = Adress.class)
     private Adress adress;
+    private boolean active = false;
     @CreationTimestamp
     private Timestamp createDate;
     @UpdateTimestamp
     private Timestamp updateTimestamp;
+
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -41,6 +66,23 @@ public class User {
         this.roles = roles;
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public User() {
     }
 
@@ -50,14 +92,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getEmail() {
-        return email.getEmail();
-    }
-
-    public void setEmail(String email) {
-        this.email.setEmail(email);
     }
 
     public String getPassword() {

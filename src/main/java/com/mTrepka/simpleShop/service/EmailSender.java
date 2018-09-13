@@ -1,5 +1,5 @@
 package com.mTrepka.simpleShop.service;
 
-public interface EmailSenderService {
+public interface EmailSender {
     void sendRegisterCode(String code,String email);
 }
