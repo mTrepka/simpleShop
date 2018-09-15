@@ -22,6 +22,8 @@ public class User {
     private String password;
     private String name;
     private String lastName;
+    @OneToOne
+    private Cart cart;
     @OneToOne(targetEntity = Adress.class)
     private Adress adress;
     private boolean active = false;
@@ -29,7 +31,9 @@ public class User {
     private Timestamp createDate;
     @UpdateTimestamp
     private Timestamp updateTimestamp;
-
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public boolean isActive() {
         return active;
@@ -54,12 +58,16 @@ public class User {
         this.code = code;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name="user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
-
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public void setRoles(Set<Role> roles) {
@@ -81,9 +89,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public User() {
     }
 
     public long getId() {

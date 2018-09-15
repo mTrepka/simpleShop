@@ -1,6 +1,7 @@
 package com.mTrepka.simpleShop.service;
 
 
+import com.mTrepka.simpleShop.domain.Cart;
 import com.mTrepka.simpleShop.domain.Role;
 import com.mTrepka.simpleShop.domain.User;
 import com.mTrepka.simpleShop.repository.RoleRepository;
@@ -61,11 +62,12 @@ public class UserServiceImpl implements UserService{
             newUser.setPassword(encoder.encode(secondPass));
             newUser.setCode(null);
             Role role = roleRepository.findByRole("USER");
-            newUser.setRoles(new HashSet<Role>(Arrays.asList(role)));
+            newUser.setRoles(new HashSet<>(Arrays.asList(role)));
             newUser.setName(name);
             newUser.setLastName(lastName);
             newUser.setActive(true);
             userRepository.save(newUser);
+            newUser.setCart(new Cart());
             return true;
         }
         return false;

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div class="container clas">
+    <ul class="flex-container">
+        <li th:each="item : ${items}" style="margin-top:10px;" class="">
+            <div class="flex-item card" style="width: 18rem;margin: auto;">
+                <img class="card-img-top" th:src="@{/images/img.jpg}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.name}"></h5>
+                    <p th:text="${item.value}"></p>
+                    <p th:text="${item.description}"></p>
+                    <p th:text="${item.category.name}"></p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>

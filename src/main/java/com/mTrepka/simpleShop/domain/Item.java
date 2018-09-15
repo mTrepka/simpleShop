@@ -1,5 +1,7 @@
 package com.mTrepka.simpleShop.domain;
 
+import javafx.beans.DefaultProperty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,6 +21,32 @@ public class Item {
     private List<Order> orders;
     @OneToOne(targetEntity = Item.class)
     private Cart cart;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    private boolean active;
 
     public long getId() {
         return id;

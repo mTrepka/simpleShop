@@ -10,6 +10,17 @@
     <li class="list-group-item">Simple Shop</li>
     <li class="list-group-item"><a href="/login">Login</a> </li>
 </ul>
+    <ul class="flex-container">
+    <li th:each="category : ${categories}" style="margin-top:10px;" class="">
+        <div class="flex-item card" style="width: 18rem;margin: auto;">
+            <img class="card-img-top" th:src="@{/images/img.jpg}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${category.name}"></h5>
+                <a th:href="@{'shop/'+ ${category.name}}" class="btn btn-primary">Go to category</a>
+            </div>
+        </div>
+    </li>
+    </ul>
 </div>
 <div th:replace="fragments/scripts :: scripts"/>
 </body>

@@ -1,10 +1,13 @@
 package com.mTrepka.simpleShop.controller;
 
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 public interface ApplicationController {
     ModelAndView getIndex();
@@ -16,7 +19,11 @@ public interface ApplicationController {
     ModelAndView getLogout(HttpServletRequest request);
 
     ModelAndView getCart();
-    ModelAndView getItem(String id);
+
+    ModelAndView getItem(String itemId);
+
+    @PostMapping("/shop/cart/")
+    ModelAndView addItemToCart(int id,int amount,HttpServletRequest request);
+
     ModelAndView getByCategory(String category);
-    ModelAndView addItemToCart(String id);
 }

@@ -1,11 +1,14 @@
 package com.mTrepka.simpleShop.controller;
 
 
-import com.mTrepka.simpleShop.domain.User;
+import com.mTrepka.simpleShop.domain.Cart;
+import com.mTrepka.simpleShop.domain.Item;
+import com.mTrepka.simpleShop.service.CartService;
+import com.mTrepka.simpleShop.service.ItemService;
 import com.mTrepka.simpleShop.service.UserService;
 import com.mTrepka.simpleShop.utility.CustomModel;
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Objects;
 
 @RestController
 @EnableAspectJAutoProxy
@@ -22,11 +27,13 @@ import javax.validation.Valid;
 public class AppRestController implements ApplicationController{
     @Autowired
     private UserService userService;
+    @Autowired
+    private ItemService itemService;
 
     @Override
     @GetMapping("/")
     public ModelAndView getIndex() {
-        return CustomModel.getCustomModelAndView("index");
+        return CustomModel.getCustomModelAndView("index").addObject("categories",itemService.getBaseCategories());
     }
 
     @Override
@@ -75,22 +82,39 @@ public class AppRestController implements ApplicationController{
     /**********************************************************/
 
     @Override
+    @GetMapping("/shop/cart/")
     public ModelAndView getCart() {
-        return CustomModel.getCustomModelAndView("index");
+        ModelAndView customModelAndView = CustomModel.getCustomModelAndView("shop/cart");
+        Cart cart = userService.getCurrentUser().getCart();
+        customModelAndView.addObject("items",cart.getItems());
+        customModelAndView.addObject("value",cart.getValue());
+        return customModelAndView;
+        //return CustomModel.getCustomModelAndView("shop/cart").addObject("items",userService.getCurrentUser().getCart().getItems()); //front do calculate himself
     }
 
     @Override
-    public ModelAndView getItem(String id) {
-        return CustomModel.getCustomModelAndView("index");
+    @PostMapping("/shop/cart/")
+    public ModelAndView addItemToCart(@Valid int id, @Valid int amount, HttpServletRequest request) {
+        itemService.addItemToCart(id,amount);
+        return CustomModel.getCustomModelAndView("shop/cart")
+                        .addObject("items",userService.getCurrentUser().getCart().getItems());
     }
 
     @Override
-    public ModelAndView getByCategory(String category) {
-        return CustomModel.getCustomModelAndView("index");
+    @GetMapping("/shop/{category}")
+    public ModelAndView getByCategory(@PathVariable("category") String category) {
+        return CustomModel.getCustomModelAndView("shop/category")
+                .addObject("items",itemService.getLastsItemsByCategory(category,25));
     }
 
     @Override
-    public ModelAndView addItemToCart(String id) {
-        return CustomModel.getCustomModelAndView("index");
+    @GetMapping("/shop/item/{itemId}")
+    public ModelAndView getItem(@PathVariable("itemId")String itemId) {
+        Item item = itemService.getItemById(Integer.parseInt(itemId));
+        if(Objects.isNull(item))
+            return CustomModel.getCustomModelAndView("notFound");
+        return CustomModel.getCustomModelAndView("shop/item")
+                .addObject("item",item);
     }
+
 }
