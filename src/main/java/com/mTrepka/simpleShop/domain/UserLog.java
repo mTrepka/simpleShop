@@ -11,13 +11,23 @@ public class UserLog {
     @Id
     @GeneratedValue
     private long id;
+
     private String type;
     private Timestamp data;
     private String ip;
+    private String secondIp;
     private String description;
     @ManyToOne(targetEntity = User.class)
     private User user;
 
+
+    public String getSecondIp() {
+        return secondIp;
+    }
+
+    public void setSecondIp(String secondIp) {
+        this.secondIp = secondIp;
+    }
     public long getId() {
         return id;
     }

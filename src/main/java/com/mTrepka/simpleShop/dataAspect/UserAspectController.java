@@ -24,7 +24,8 @@ public class UserAspectController {
         UserLog log = new UserLog();
         log.setUser(userService.getCurrentUser());
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
+        log.setIp(request.getRemoteAddr());
+        log.setSecondIp(request.getLocalAddr());
         log.setDescription("User log in");
         log.setType("LOGIN");
     }
@@ -32,7 +33,8 @@ public class UserAspectController {
         UserLog log = new UserLog();
         log.setUser(userService.getCurrentUser());
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
+        log.setIp(request.getRemoteAddr());
+        log.setSecondIp(request.getLocalAddr());
         log.setDescription("User log out");
         log.setType("LOGOUT");
     }
@@ -40,7 +42,8 @@ public class UserAspectController {
         UserLog log = new UserLog();
         log.setUser(userService.getCurrentUser());
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
+        log.setIp(request.getRemoteAddr());
+        log.setSecondIp(request.getLocalAddr());
         log.setDescription("User buy order"+order.getId());
         log.setType("SHOPPING");
     }

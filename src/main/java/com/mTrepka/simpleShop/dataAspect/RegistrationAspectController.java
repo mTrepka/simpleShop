@@ -28,7 +28,8 @@ public class RegistrationAspectController {
     void userEmailRegister(String email,HttpServletRequest request){
         UserLog log = new UserLog();
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
+        log.setIp(request.getRemoteAddr());
+        log.setSecondIp(request.getLocalAddr());
         log.setDescription("Register email "+email);
         log.setType("REGISTER");
         log.setUser(userService.findUserByEmail(email));
@@ -44,7 +45,8 @@ public class RegistrationAspectController {
         String email = user.getEmail();
         UserLog log = new UserLog();
         log.setData(Timestamp.valueOf(LocalDateTime.now()));
-        log.setIp(request.getRemoteAddr()+"/"+request.getLocalAddr());
+        log.setIp(request.getRemoteAddr());
+        log.setSecondIp(request.getLocalAddr());
         log.setDescription("Register user "+email);
         log.setType("REGISTER");
         log.setUser(userService.findUserByEmail(email));

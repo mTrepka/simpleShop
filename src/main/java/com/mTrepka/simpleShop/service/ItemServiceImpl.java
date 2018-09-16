@@ -63,4 +63,19 @@ public class ItemServiceImpl implements ItemService{
         cart.getItems().add(item);
         cartService.save(cart);
     }
+
+    @Override
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    @Override
+    public void addItem(Item item) {
+        itemRepository.save(item);
+    }
+
+    @Override
+    public void deleteItemById(long id) {
+        itemRepository.deleteById(id);
+    }
 }

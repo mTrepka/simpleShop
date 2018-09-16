@@ -7,12 +7,14 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface ItemService{
-    //List<Item> findItemByCategory(Category category);
-    //List<Item> findItemByCategoryName(String categoryName);
     List<Category> getBaseCategories();
     List<Item> getLastsItemsByCategory(String category, int amount);
-
     Item getItemById(long itemId);
     void addItemToCart(long id, int amount);
     void addItemToCart(Item item,int amount);
+    List<Item> getAllItems();
+
+    void addItem(Item item);
+
+    void deleteItemById(long id);
 }
