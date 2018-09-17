@@ -1,0 +1,13 @@
+<div th:fragment="menu" xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:switch="${role}">
+        <div th:case="'[ROLE_ANONYMOUS]'">
+            <div th:replace="fragments/questMenu :: questMenu"/>
+        </div>
+        <div th:case="'[ROLE_USER]'">
+            <div th:replace="fragments/userMenu :: userMenu"/>
+        </div>
+        <div th:case="'[ROLE_ADMIN]'">
+            <div th:replace="fragments/adminMenu :: adminMenu"/>
+        </div>
+    </th:block>
+</div>

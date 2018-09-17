@@ -12,4 +12,5 @@ public interface LogService {
     List<UserLog> getLogsBySecondIp(String ip);
 
     List<UserLog> getLogsWithFilters(String ip, String secondIp, String type);
+
 }

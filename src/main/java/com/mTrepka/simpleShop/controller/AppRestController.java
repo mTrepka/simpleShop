@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Objects;
 
+
 @RestController
 @EnableAspectJAutoProxy
-
 public class AppRestController implements ApplicationController{
     @Autowired
     private UserService userService;
@@ -29,66 +29,68 @@ public class AppRestController implements ApplicationController{
     private ItemService itemService;
     @Autowired
     private LogService logService;
+    @Autowired
+    private CustomModel customModel;
 
     @Override
     @GetMapping("/")
     public ModelAndView getIndex() {
-        return CustomModel.getCustomModelAndView("index").addObject("categories",itemService.getBaseCategories());
+        return customModel.getCustomModelAndView("index");
     }
 
     @Override
     @GetMapping("/login")
     public ModelAndView getLogin() {
-        return CustomModel.getCustomModelAndView("login");
+        return customModel.getCustomModelAndView("login");
     }
 
     @Override
     @GetMapping("/register")
     public ModelAndView getRegister(HttpServletRequest request) {
-        return CustomModel.getCustomModelAndView("register");
+        return customModel.getCustomModelAndView("register");
     }
 
     @Override
     @PostMapping("/register")
-    public ModelAndView postRegister(@Valid String email,HttpServletRequest request) {
-        return CustomModel.getCustomModelAndView("registerInfo")
+    public ModelAndView postRegister(@Valid String email, HttpServletRequest request) {
+        return customModel.getCustomModelAndView("registerInfo")
                 .addObject("success",userService.registerEmail(email));
     }
 
     @Override
     @GetMapping("/register/{code}")
-    public ModelAndView getSecondPartRegister(@PathVariable("code") String code,HttpServletRequest request) {
-        return CustomModel.getCustomModelAndView("registerCode")
+    public ModelAndView getSecondPartRegister(@PathVariable("code") String code, HttpServletRequest request) {
+        return customModel.getCustomModelAndView("registerCode")
                 .addObject("code",code);
     }
 
     @Override
     @PostMapping("/register/")
-    public ModelAndView postSecondPartRegister(String code, String firstPass, String secondPass,HttpServletRequest request,String name,String lastName) {
+    public ModelAndView postSecondPartRegister(String code, String firstPass, String secondPass, HttpServletRequest request, String name, String lastName) {
         String info;
         if(userService.registerUser(firstPass, secondPass, name, lastName, code))
-           info = "Uzytkownik zarejestrowany, można się zalogowac.";
+            info = "Uzytkownik zarejestrowany, można się zalogowac.";
         else
             info = "Zły kod";
-        return CustomModel.getCustomModelAndView("info")
+        return customModel.getCustomModelAndView("info")
                 .addObject("info",info);
     }
 
     @Override
     @GetMapping("/logout")
     public ModelAndView getLogout(HttpServletRequest request) {
-        return CustomModel.getCustomModelAndView("index");
+        return customModel.getCustomModelAndView("index");
     }
+
     /**********************************************************/
 
     @Override
     @GetMapping("/shop/cart/")
     public ModelAndView getCart() {
-        ModelAndView customModelAndView = CustomModel.getCustomModelAndView("shop/cart");
         Cart cart = userService.getCurrentUser().getCart();
-        customModelAndView.addObject("items",cart.getItems());
-        customModelAndView.addObject("value",cart.getValue());
-        return customModelAndView;
+        return customModel.getCustomModelAndView("shop/cart")
+                .addObject("items", cart.getItems())
+                .addObject("value", cart.getValue());
         //return CustomModel.getCustomModelAndView("shop/cart").addObject("items",userService.getCurrentUser().getCart().getItems()); //front do calculate himself
     }
 
@@ -96,14 +98,14 @@ public class AppRestController implements ApplicationController{
     @PostMapping("/shop/cart/")
     public ModelAndView addItemToCart(@Valid int id, @Valid int amount, HttpServletRequest request) {
         itemService.addItemToCart(id,amount);
-        return CustomModel.getCustomModelAndView("shop/cart")
-                        .addObject("items",userService.getCurrentUser().getCart().getItems());
+        return customModel.getCustomModelAndView("shop/cart")
+                .addObject("items", userService.getCurrentUser().getCart().getItems());
     }
 
     @Override
     @GetMapping("/shop/{category}")
     public ModelAndView getByCategory(@PathVariable("category") String category) {
-        return CustomModel.getCustomModelAndView("shop/category")
+        return customModel.getCustomModelAndView("shop/category")
                 .addObject("items",itemService.getLastsItemsByCategory(category,25));
     }
 
@@ -112,78 +114,79 @@ public class AppRestController implements ApplicationController{
     public ModelAndView getItem(@PathVariable("itemId")String itemId) {
         Item item = itemService.getItemById(Integer.parseInt(itemId));
         if(Objects.isNull(item))
-            return CustomModel.getCustomModelAndView("notFound");
-        return CustomModel.getCustomModelAndView("shop/item")
+            return customModel.getCustomModelAndView("notFound");
+        return customModel.getCustomModelAndView("shop/item")
                 .addObject("item",item);
     }
 
     @GetMapping("/admin/logs")
     @Override
     public ModelAndView getLogs() {
-        return CustomModel.getCustomModelAndView("admin/logs")
+        return customModel.getCustomModelAndView("admin/logs")
                 .addObject("logs",logService.getAllLogs());
     }
 
     @PostMapping("/admin/logs")
     @Override
-    public ModelAndView getLogsWithFilter(@Valid String ip,@Valid String secondIp,@Valid String type) {
-        return CustomModel.getCustomModelAndView("admin/logs")
+    public ModelAndView getLogsWithFilter(@Valid String ip, @Valid String secondIp, @Valid String type) {
+        return customModel.getCustomModelAndView("admin/logs")
                 .addObject(logService.getLogsWithFilters(ip,secondIp,type));
     }
 
     @Override
     @GetMapping("/admin/users")
     public ModelAndView getUsers() {
-        return CustomModel.getCustomModelAndView("admin/users")
+        return customModel.getCustomModelAndView("admin/users")
                 .addObject("users",userService.getAllUsers());
     }
 
     @GetMapping("/admin/users/{id}")
     @Override
     public ModelAndView getUser(@PathVariable("id") int id) {
-        return CustomModel.getCustomModelAndView("admin/user")
+        return customModel.getCustomModelAndView("admin/user")
                 .addObject("user",userService.findById(id));
     }
 
     @GetMapping("/admin/items")
     @Override
     public ModelAndView getItems() {
-        return CustomModel.getCustomModelAndView("admin/items")
+        return customModel.getCustomModelAndView("admin/items")
                 .addObject("items",itemService.getAllItems());
     }
 
     @GetMapping("/admin/items/{id}")
     @Override
     public ModelAndView getItem(@PathVariable("id") int id) {
-        return CustomModel.getCustomModelAndView("admin/item")
+        return customModel.getCustomModelAndView("admin/item")
                 .addObject("item",itemService.getItemById(id));
     }
 
     @GetMapping("/admin/new-item")
     @Override
     public ModelAndView getAddNewItem() {
-        return CustomModel.getCustomModelAndView("admin/newItem");
+        return customModel.getCustomModelAndView("admin/newItem").addObject("categoryList", itemService.getAllCategory())
+                .addObject("item", new Item());
     }
 
     @PostMapping("/admin/new-item")
     @Override
     public ModelAndView postAddNewItem(@Valid Item item) {
         itemService.addItem(item);
-        return CustomModel.getCustomModelAndView("info")
+        return customModel.getCustomModelAndView("info")
                 .addObject("info","Item zostal dodany!");
     }
 
     @GetMapping("/admin/item/edit/{id}")
     @Override
     public ModelAndView editGetItem(@PathVariable("id") int id) {
-        return CustomModel.getCustomModelAndView("admin/itemEdit")
-                .addObject("item",itemService.getItemById(id));
+        return customModel.getCustomModelAndView("admin/itemEdit")
+                .addObject("newItem", itemService.getItemById(id));
     }
 
     @PostMapping("/admin/item/edit/{id}")
     @Override
     public ModelAndView editPostItem(Item item) {
-        return CustomModel.getCustomModelAndView("admin/itemEdit")
+        return customModel.getCustomModelAndView("admin/itemEdit")
                 .addObject("item",item)
                 .addObject("info","Item został zmieniony");
     }
@@ -192,7 +195,34 @@ public class AppRestController implements ApplicationController{
     @Override
     public ModelAndView deleteItem(@PathVariable("id") int id) {
         itemService.deleteItemById(id);
-        return CustomModel.getCustomModelAndView("info")
+        return customModel.getCustomModelAndView("info")
                 .addObject("info","Item zostal usunięty!");
+    }
+
+    @GetMapping("/settings")
+    @Override
+    public ModelAndView userSettings() {
+        return customModel.getCustomModelAndView("user/settings");
+    }
+
+    @PostMapping("/settings")
+    @Override
+    public ModelAndView userSettingsChange(@Valid String name, @Valid String lastName, @Valid String password, @Valid String repeatPassword, @Valid String oldPassword) {
+        return customModel.getCustomModelAndView("user/settings")
+                .addObject("message", userService.changeUser(name, lastName, password, repeatPassword, oldPassword));
+    }
+
+    @GetMapping("/settings/history")
+    @Override
+    public ModelAndView userHistory() {
+        return customModel.getCustomModelAndView("user/history")
+                .addObject(userService.getCurrentUser().getOrders());
+    }
+
+    @GetMapping("/settings/security")
+    @Override
+    public ModelAndView userSecurity() {
+        return customModel.getCustomModelAndView("user/security")
+                .addObject("logs", userService.getCurrentUser().getLogs());
     }
 }

@@ -89,4 +89,9 @@ public class UserServiceImpl implements UserService{
     public Optional<User> findById(int id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public String changeUser(String name, String lastName, String password, String repeatPassword, String oldPassword) {
+        return null;
+    }
 }

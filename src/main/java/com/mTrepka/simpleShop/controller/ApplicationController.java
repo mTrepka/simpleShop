@@ -2,13 +2,9 @@ package com.mTrepka.simpleShop.controller;
 
 
 import com.mTrepka.simpleShop.domain.Item;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 public interface ApplicationController {
     ModelAndView getIndex();
@@ -36,4 +32,12 @@ public interface ApplicationController {
     ModelAndView getLogs();
     ModelAndView getLogsWithFilter(String ip,String secondIp,String type);
 
+
+    ModelAndView userHistory();
+
+    ModelAndView userSettings();
+
+    ModelAndView userSettingsChange(String name, String lastName, String password, String repeatPassword, String oldPassword);
+    
+    ModelAndView userSecurity();
 }

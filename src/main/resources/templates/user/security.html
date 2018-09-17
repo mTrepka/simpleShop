@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"/>
+<div class="container clas">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Data</th>
+            <th scope="col">Ip</th>
+            <th scope="col">Second Ip</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="log : ${logs}">
+            <th scope="row" th:text="${log.id}"/>
+            <td th:text="${log.data}"/>
+            <td th:text="${log.ip}"/>
+            <td th:text="${log.secondIp}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>

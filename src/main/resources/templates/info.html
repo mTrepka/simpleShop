@@ -9,8 +9,9 @@
     <<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
+<div th:replace="fragments/menu :: menu"/>
 <div class="container clas">
-    <p th:text="${info}"/>
+    <p th:text="${info}" class="information"/>
 </div>
 
 </body>

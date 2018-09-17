@@ -52,4 +52,5 @@ public class LogServiceImpl implements LogService{
             stream = stream.filter(e -> e.getType().equals(type));
         return stream.collect(Collectors.toList());
     }
+
 }

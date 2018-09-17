@@ -3,7 +3,6 @@ package com.mTrepka.simpleShop.service;
 import com.mTrepka.simpleShop.domain.Category;
 import com.mTrepka.simpleShop.domain.Item;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface ItemService{
@@ -15,6 +14,8 @@ public interface ItemService{
     List<Item> getAllItems();
 
     void addItem(Item item);
+
+    List<Category> getAllCategory();
 
     void deleteItemById(long id);
 }

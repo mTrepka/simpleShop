@@ -4,18 +4,14 @@ package com.mTrepka.simpleShop.service;
 import com.mTrepka.simpleShop.domain.Cart;
 import com.mTrepka.simpleShop.domain.Category;
 import com.mTrepka.simpleShop.domain.Item;
-import com.mTrepka.simpleShop.repository.CartRepository;
 import com.mTrepka.simpleShop.repository.CategoryRepository;
 import com.mTrepka.simpleShop.repository.ItemRepository;
-import com.mTrepka.simpleShop.utility.CustomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service("itemService")
@@ -33,8 +29,7 @@ public class ItemServiceImpl implements ItemService{
     public List<Category> getBaseCategories() {
         List<String> categoryNames = Arrays.asList("Ubrania","Elektronika","Dom","Dziecko","Zdrowie","Motoryzacja");
         Collections.sort(categoryNames);
-        List<Category> categories = categoryNames.stream().map(e -> categoryRepository.findByName(e)).collect(Collectors.toList());
-        return categories;
+        return categoryNames.stream().map(e -> categoryRepository.findByName(e)).collect(Collectors.toList());
     }
 
     @Override
@@ -77,5 +72,10 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public void deleteItemById(long id) {
         itemRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Category> getAllCategory() {
+        return categoryRepository.findAll();
     }
 }

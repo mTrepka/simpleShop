@@ -10,6 +10,5 @@ import java.util.List;
 public interface LogRepository extends JpaRepository<UserLog,Integer> {
     List<UserLog> findAllByIp(String ip);
     List<UserLog> findAllBySecondIp(String secondIp);
-    List<UserLog> findAllBySecondIpAndIp(String secondIp,String Ip);
     List<UserLog> findAllByType(String type);
 }

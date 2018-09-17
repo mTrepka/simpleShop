@@ -17,4 +17,6 @@ public interface UserService{
     User findUserByCode(String code);
 
     List<User> getAllUsers();
+
+    String changeUser(String name, String lastName, String password, String repeatPassword, String oldPassword);
 }

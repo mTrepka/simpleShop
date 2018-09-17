@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"/>
+<div class="container clas">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Active</th>
+            <th scope="col">Registration Date</th>
+            <th scope="col">Update Date</th>
+            <th scope="col">Roles</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <th scope="row" th:text="${user.id}"/>
+            <td th:text="${user.email}"/>
+            <td th:text="${user.name}"/>
+            <td th:text="${user.lastName}"/>
+            <td th:text="${user.active}"/>
+            <td th:text="${user.createDate}"/>
+            <td th:text="${user.updateTimestamp}"/>
+            <td>
+                <div th:each="role :${user.roles}">
+                    <div th:text="${role.role}"/>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>

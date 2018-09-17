@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div class="container clas">
+    <th scope="row" th:text="${user.id}"></th>
+    <p th:text="${user.email}"/>
+    <p th:text="${user.name}"/>
+    <p th:text="${user.lastName}"/>
+    <p th:text="${user.active}"/>
+    <p th:text="${user.createDate}"/>
+    <p th:text="${user.updateTimestamp}"/>
+    <p>
+    <div th:each="role :${user.roles}">
+        <div th:text="${role.role}"/>
+    </div>
+    </p>
+    <p>
+    <p th:text="${user.adress.city}"/>
+    <p th:text="${user.adress.country}"/>
+    <p th:text="${user.adress.postalAdress}"/>
+    <p th:text="${user.adress.homeNumber}"/>
+    <p th:text="${user.adress.street1line}"/>
+    <p th:text="${user.adress.street2line}"/>
+    </p>
+    <p>
+        <div th:each="order :${user.orders}">
+    <p>items</p>
+    <div th:each="item :${order.cart.items}">
+        <div th:text="${item.name}"/>
+        <div th:text="${item.value}"/>
+    </div>
+    <p>Shipping</p>
+    <div th:text="${order.shipping.option.name}"/>
+    <div th:text="${order.shipping.option.cost}"/>
+    <div>
+        <p th:text="${order.shipping.adress.city}"/>
+        <p th:text="${order.shipping.adress.country}"/>
+        <p th:text="${order.shipping.adress.postalAdress}"/>
+        <p th:text="${order.shipping.adress.homeNumber}"/>
+        <p th:text="${order.shipping.adress.street1line}"/>
+        <p th:text="${order.shipping.adress.street2line}"/>
+        </p>
+    </div>
+    <div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>

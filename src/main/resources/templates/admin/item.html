@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div th:replace="fragments/menu :: menu"/>
+<div class="container clas">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Value</th>
+            <th scope="col">Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <th scope="row" th:text="${item.id}"/>
+            <td th:text="${item.name}"/>
+            <td th:text="${item.value}"/>
+            <td th:text="${item.category.name}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>
