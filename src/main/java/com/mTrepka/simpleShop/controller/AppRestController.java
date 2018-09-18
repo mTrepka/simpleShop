@@ -2,6 +2,7 @@ package com.mTrepka.simpleShop.controller;
 
 
 import com.mTrepka.simpleShop.domain.Cart;
+import com.mTrepka.simpleShop.domain.Category;
 import com.mTrepka.simpleShop.domain.Item;
 import com.mTrepka.simpleShop.service.ItemService;
 import com.mTrepka.simpleShop.service.LogService;
@@ -165,13 +166,13 @@ public class AppRestController implements ApplicationController{
     @Override
     public ModelAndView getAddNewItem() {
         return customModel.getCustomModelAndView("admin/newItem").addObject("categoryList", itemService.getAllCategory())
-                .addObject("item", new Item());
+                .addObject("item", new Item())
+                .addObject("category", new Category());
     }
 
     @PostMapping("/admin/new-item")
-    @Override
-    public ModelAndView postAddNewItem(@Valid Item item) {
-        itemService.addItem(item);
+    public ModelAndView postAddNewItem(@Valid Item item, @Valid String cat) {
+        itemService.saveItem(item, cat);
         return customModel.getCustomModelAndView("info")
                 .addObject("info","Item zostal dodany!");
     }

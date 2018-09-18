@@ -5,9 +5,9 @@
     <div th:replace="fragments/defaultHead :: head"/>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"/>
-<div th:replace="fragments/settingsMenu :: settingsMenu"/>
 <div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
+    <div th:replace="fragments/settingsMenu :: settingsMenu"/>
     <form th:action="@{/settings}" method="POST">
         <div class="form-group">
             <label for="name">Name</label>

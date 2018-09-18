@@ -1,7 +1,5 @@
 package com.mTrepka.simpleShop.domain;
 
-import javafx.beans.DefaultProperty;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,12 +13,26 @@ public class Item {
     private String name;
     private double value;
     private String description;
-    @ManyToOne(targetEntity = Category.class)
+    @ManyToOne
     private Category category;
     @OneToMany(targetEntity = Order.class)
     private List<Order> orders;
     @OneToOne(targetEntity = Item.class)
     private Cart cart;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", value=" + value +
+                ", description='" + description + '\'' +
+                ", category=" + category +
+                ", orders=" + orders +
+                ", cart=" + cart +
+                ", active=" + active +
+                '}';
+    }
 
     public List<Order> getOrders() {
         return orders;

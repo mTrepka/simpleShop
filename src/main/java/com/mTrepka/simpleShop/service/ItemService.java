@@ -18,4 +18,6 @@ public interface ItemService{
     List<Category> getAllCategory();
 
     void deleteItemById(long id);
+
+    void saveItem(Item item, String cat);
 }

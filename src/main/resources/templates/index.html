@@ -5,8 +5,8 @@
     <div th:replace="fragments/defaultHead :: head"/>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"/>
 <div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
     <ul class="flex-container">
     <li th:each="category : ${categories}" style="margin-top:10px;" class="">
         <div class="flex-item card" style="width: 18rem;margin: auto;">

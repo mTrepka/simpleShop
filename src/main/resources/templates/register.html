@@ -5,9 +5,9 @@
     <div th:replace="fragments/defaultHead :: head"/>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"/>
 <div class="container clas">
-    <form th:action="@{/register}" method="POST">
+    <div th:replace="fragments/menu :: menu"/>
+    <form th:action="@{/register}" method="POST" class="form">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

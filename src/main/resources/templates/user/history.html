@@ -5,9 +5,9 @@
     <div th:replace="fragments/defaultHead :: head"/>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"/>
-<div th:replace="fragments/settingsMenu :: settingsMenu"/>
 <div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
+    <div th:replace="fragments/settingsMenu :: settingsMenu"/>
     <div th:each="order :${orders}">
         <h2>Items</h2>
         <div th:each="item :${order.cart.items}">

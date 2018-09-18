@@ -5,16 +5,14 @@
     <div th:replace="fragments/defaultHead :: head"/>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"/>
 <div class="container clas">
-            <div class="flex-item card" style="width: 18rem;">
-                <img class="card-img-top" th:src="@{/images/img.jpg}" alt="Card image cap"/>
-                <div class="card-body" th:object="${item}">
-                    <h5 class="card-title" th:text="*{name}"></h5>
+    <div th:replace="fragments/menu :: menu"/>
+    <div th:object="${item}">
+        <h5 th:text="*{name}"></h5>
                     <p th:text="*{description}"></p>
+        <p th:text="*{value}"></p>
                     <p th:text="*{category.name}"></p>
                 </div>
-            </div>
 </div>
 <div th:replace="fragments/scripts :: scripts"/>
 </body>

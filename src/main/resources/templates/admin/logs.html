@@ -5,8 +5,8 @@
     <div th:replace="fragments/defaultHead :: head"/>
 </head>
 <body>
-<div th:replace="fragments/menu :: menu"/>
 <div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
     <form th:action="@{/admin/logs}" method="POST">
         <div class="form-group">
             <label for="ip">Ip</label>

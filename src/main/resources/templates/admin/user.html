@@ -6,6 +6,7 @@
 </head>
 <body>
 <div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
     <th scope="row" th:text="${user.id}"></th>
     <p th:text="${user.email}"/>
     <p th:text="${user.name}"/>

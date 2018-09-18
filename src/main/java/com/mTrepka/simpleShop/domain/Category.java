@@ -11,19 +11,12 @@ public class Category {
     @Id
     @GeneratedValue
     private long id;
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = Item.class)
+    @OneToMany
     private List<Item> items;
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", items=" + items +
-                '}';
-    }
 
     public long getId() {
         return id;

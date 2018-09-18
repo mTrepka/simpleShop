@@ -25,7 +25,8 @@ public interface ApplicationController {
     ModelAndView getItems();
     ModelAndView getItem(int id);
     ModelAndView getAddNewItem();
-    ModelAndView postAddNewItem(Item item);
+
+    ModelAndView postAddNewItem(Item item, String cat);
     ModelAndView editGetItem(int id);
     ModelAndView editPostItem(Item item);
     ModelAndView deleteItem(int id);

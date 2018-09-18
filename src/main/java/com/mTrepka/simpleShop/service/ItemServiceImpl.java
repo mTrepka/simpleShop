@@ -78,4 +78,10 @@ public class ItemServiceImpl implements ItemService{
     public List<Category> getAllCategory() {
         return categoryRepository.findAll();
     }
+
+    @Override
+    public void saveItem(Item item, String cat) {
+        item.setCategory(categoryRepository.findById(Long.parseLong(cat)).get());
+        itemRepository.save(item);
+    }
 }
