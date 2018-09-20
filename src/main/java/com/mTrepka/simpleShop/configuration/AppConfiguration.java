@@ -2,6 +2,7 @@ package com.mTrepka.simpleShop.configuration;
 
 
 import com.mTrepka.simpleShop.dataAspect.RegistrationAspectController;
+import com.mTrepka.simpleShop.dataAspect.ShippingOptionAspectController;
 import com.mTrepka.simpleShop.dataAspect.UserAspectController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +50,8 @@ public class AppConfiguration {
     RegistrationAspectController registrationAspectController() {
         return new RegistrationAspectController();
     }
+    @Bean
+    ShippingOptionAspectController shippingOptionAspectController() {return new ShippingOptionAspectController();}
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -225,7 +225,7 @@ public class AppRestController implements ApplicationController{
 
     @PostMapping("/admin/shipping-option-new")
     @Override
-    public ModelAndView postAddShippingOption(@Valid ShippingOption shipping) {
+    public ModelAndView postAddShippingOption(@Valid ShippingOption shipping,HttpServletRequest request) {
         shippingOptionService.save(shipping);
         return customModel.getCustomModelAndView("info")
                 .addObject("info", "Shipping option has been created.");
@@ -240,15 +240,15 @@ public class AppRestController implements ApplicationController{
 
     @GetMapping("/admin/shipping-option-del/{id}")
     @Override
-    public ModelAndView removeShippingOption(@PathVariable("id") int id) {
+    public ModelAndView removeShippingOption(@PathVariable("id") int id,HttpServletRequest request) {
         shippingOptionService.delete(id);
         return customModel.getCustomModelAndView("info")
                 .addObject("info", "Shipping option has been deleted.");
     }
 
-    @PostMapping("/admin/shipping-option/{id}")
+    @PostMapping("/admin/shipping-option/{}")
     @Override
-    public ModelAndView editPostShippingOption(ShippingOption shipping) {
+    public ModelAndView editPostShippingOption(ShippingOption shipping,HttpServletRequest request) {
         shippingOptionService.save(shipping);
         return customModel.getCustomModelAndView("info")
                 .addObject("info", "Shipping option has been changed.");

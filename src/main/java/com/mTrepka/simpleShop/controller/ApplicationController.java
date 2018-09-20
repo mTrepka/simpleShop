@@ -3,7 +3,6 @@ package com.mTrepka.simpleShop.controller;
 
 import com.mTrepka.simpleShop.domain.Item;
 import com.mTrepka.simpleShop.domain.ShippingOption;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,14 +43,10 @@ public interface ApplicationController {
 
     ModelAndView getAddShippingOption();
 
-    ModelAndView postAddShippingOption(ShippingOption shipping);
-
+    ModelAndView postAddShippingOption(ShippingOption shipping,HttpServletRequest request);
     ModelAndView editGetShippingOption(int id);
-
-    @GetMapping("/admin/shipping-option-del/{id}")
-    ModelAndView removeShippingOption(@PathVariable("id") int id);
-
-    ModelAndView editPostShippingOption(ShippingOption shipping);
+    ModelAndView removeShippingOption(@PathVariable("id") int id,HttpServletRequest request);
+    ModelAndView editPostShippingOption(ShippingOption shipping,HttpServletRequest request);
 
     ModelAndView userSettings();
     ModelAndView userSettingsChange(String name, String lastName, String password, String repeatPassword, String oldPassword);
