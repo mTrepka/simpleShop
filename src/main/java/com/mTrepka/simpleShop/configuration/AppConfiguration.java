@@ -1,12 +1,19 @@
 package com.mTrepka.simpleShop.configuration;
 
 
+import com.mTrepka.simpleShop.dataAspect.RegistrationAspectController;
+import com.mTrepka.simpleShop.dataAspect.UserAspectController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.Resource;
 import java.util.Properties;
 
 @Configuration
@@ -32,4 +39,28 @@ public class AppConfiguration {
         props.put("mail.debug", "true");
         return mailSender;
     }
+
+    @Bean
+    UserAspectController userAspectController() {
+        return new UserAspectController();
+    }
+
+    @Bean
+    RegistrationAspectController registrationAspectController() {
+        return new RegistrationAspectController();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder;
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Resource(name = "customUserDetailsService")
+    private CustomUserDetailsService customUserDetailsService;
 }

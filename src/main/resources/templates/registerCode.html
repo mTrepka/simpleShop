@@ -9,13 +9,17 @@
     <form th:action="@{/register/}" method="POST" class="form">
         <div class="form-group">
             <label for="firstPass">Password</label>
-            <input type="password" name="firstPass" class="form-control" id="firstPass" aria-describedby="emailHelp" placeholder="Enter password">
+            <input type="password" name="firstPass" class="form-control" id="firstPass" aria-describedby="emailHelp"
+                   placeholder="Enter password" required="required">
             <label for="secondPass">Repeat Password</label>
-            <input type="password" name="secondPass" class="form-control" id="secondPass" aria-describedby="emailHelp" placeholder="Repeat password">
+            <input type="password" name="secondPass" class="form-control" id="secondPass" aria-describedby="emailHelp"
+                   placeholder="Repeat password" required="required">
             <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name">
+            <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
+                   placeholder="Enter name" required="required">
             <label for="lastName">Last Name</label>
-            <input type="text" name="lastName" class="form-control" id="lastName" aria-describedby="emailHelp" placeholder="Enter last name">
+            <input type="text" name="lastName" class="form-control" id="lastName" aria-describedby="emailHelp"
+                   placeholder="Enter last name" required="required">
             <input type="hidden" name="code" th:value="${code}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

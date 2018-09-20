@@ -13,17 +13,13 @@
             <th scope="col">Id</th>
             <th scope="col">Name</th>
             <th scope="col">Value</th>
-            <th scope="col">Category</th>
-            <th scope="col">Amount</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${items}">
-            <th scope="row" th:text="${item.item.id}"/>
-            <td th:text="${item.item.name}"/>
-            <td th:text="${item.item.value}"/>
-            <td th:text="${item.item.category.name}"/>
-            <td th:text="${item.amount}"/>
+        <tr th:each="shipping : ${shippingList}">
+            <th scope="row" th:text="${shipping.id}"/>
+            <td th:text="${shipping.name}"/>
+            <td th:text="${shipping.cost}"/>
         </tr>
         </tbody>
     </table>

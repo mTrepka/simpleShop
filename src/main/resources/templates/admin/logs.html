@@ -30,6 +30,7 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Data</th>
+            <th scope="col">Type</th>
             <th scope="col">Ip</th>
             <th scope="col">Second Ip</th>
             <th scope="col">User Id</th>
@@ -38,6 +39,7 @@
         <tbody>
         <tr th:each="log : ${logs}">
             <th scope="row" th:text="${log.id}"/>
+            <td th:text="${log.type}"/>
             <td th:text="${log.data}"/>
             <td th:text="${log.ip}"/>
             <td th:text="${log.secondIp}"/>

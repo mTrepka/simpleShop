@@ -17,8 +17,6 @@ public class Item {
     private Category category;
     @OneToMany(targetEntity = Order.class)
     private List<Order> orders;
-    @OneToOne(targetEntity = Item.class)
-    private Cart cart;
 
     @Override
     public String toString() {
@@ -29,7 +27,6 @@ public class Item {
                 ", description='" + description + '\'' +
                 ", category=" + category +
                 ", orders=" + orders +
-                ", cart=" + cart +
                 ", active=" + active +
                 '}';
     }
@@ -42,13 +39,7 @@ public class Item {
         this.orders = orders;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 
     public boolean isActive() {
         return active;

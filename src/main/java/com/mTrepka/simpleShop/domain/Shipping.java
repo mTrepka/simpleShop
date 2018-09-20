@@ -8,7 +8,7 @@ public class Shipping {
     @Column(name = "shipping_id")
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
     @ManyToOne(targetEntity = ShippingOption.class)
     private ShippingOption option;
     @ManyToOne(targetEntity = Adress.class)
@@ -16,11 +16,12 @@ public class Shipping {
     @OneToOne
     private Order order;
 
-    public long getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

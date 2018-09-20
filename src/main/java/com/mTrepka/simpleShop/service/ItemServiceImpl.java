@@ -4,7 +4,9 @@ package com.mTrepka.simpleShop.service;
 import com.mTrepka.simpleShop.domain.Cart;
 import com.mTrepka.simpleShop.domain.Category;
 import com.mTrepka.simpleShop.domain.Item;
+import com.mTrepka.simpleShop.domain.ItemAmount;
 import com.mTrepka.simpleShop.repository.CategoryRepository;
+import com.mTrepka.simpleShop.repository.ItemAmountRepository;
 import com.mTrepka.simpleShop.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class ItemServiceImpl implements ItemService{
     private UserService userService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private ItemAmountRepository itemAmountRepository;
 
     @Override
     public List<Category> getBaseCategories() {
@@ -48,14 +52,20 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public void addItemToCart(long id, int amount) {
         Cart cart = cartService.getCurrentUserCart();
-        cart.getItems().add(itemRepository.getOne(id));
+        ItemAmount itemAmount = new ItemAmount();
+        itemAmount.setAmount(amount);
+        itemAmount.setItem(itemRepository.getById(id));
+        itemAmount.setCart(cart);
+        itemAmountRepository.saveAndFlush(itemAmount);
+        cart.getItems().add(itemAmount);
         cartService.save(cart);
+        cart = cartService.getCurrentUserCart();
     }
 
     @Override
     public void addItemToCart(Item item, int amount) {
         Cart cart = cartService.getCurrentUserCart();
-        cart.getItems().add(item);
+        //cart.getItems().add(item);
         cartService.save(cart);
     }
 

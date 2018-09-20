@@ -11,7 +11,7 @@ public class Cart {
     @GeneratedValue
     private long id;
     @OneToMany
-    private List<Item> items;
+    private List<ItemAmount> items;
     @OneToOne
     private User user;
 
@@ -23,11 +23,11 @@ public class Cart {
         this.id = id;
     }
 
-    public List<Item> getItems() {
+    public List<ItemAmount> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<ItemAmount> items) {
         this.items = items;
     }
 
@@ -36,7 +36,7 @@ public class Cart {
     }
 
     public double getValue(){
-        return items.stream().mapToDouble(Item::getValue).sum();
+        return 0;
     }
 
     public void setUser(User user) {

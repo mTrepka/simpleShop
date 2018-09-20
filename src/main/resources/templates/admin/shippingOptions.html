@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Value</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="shipping : ${shippingList}">
+            <th scope="row" th:text="${shipping.id}"/>
+            <td th:text="${shipping.name}"/>
+            <td th:text="${shipping.cost}"/>
+            <td><a th:href="@{${href} +'admin/shipping-option-del/'+${shipping.id}}"><img th:src="@{/images/remove.jpg}"
+                                                                                          width="16px"/></a>
+                <a th:href="@{${href} +'admin/shipping-option/'+${shipping.id}}"><img th:src="@{/images/edit.png}"
+                                                                                      width="16px"/></a>
+            </td>
+        </tr>
+        <tr>
+            <th>-</th>
+            >
+            <td><a th:href="@{${href} +'admin/shipping-option-new'}">Add new shipping option</a></td>
+            <td><a th:href="@{${href} +'admin/shipping-option-new'}">+</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>

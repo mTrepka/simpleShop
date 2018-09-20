@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,11 +43,11 @@ public class LogServiceImpl implements LogService{
     public List<UserLog> getLogsWithFilters(String ip, String secondIp, String type) {
         List<UserLog> logs = this.getAllLogs();
         Stream<UserLog> stream = logs.stream();
-        if(Objects.nonNull(ip))
+        if (!ip.isEmpty())
             stream = stream.filter(e -> e.getIp().equals(ip));
-        if(Objects.nonNull(secondIp))
+        if (!secondIp.isEmpty())
             stream = stream.filter(e -> e.getSecondIp().equals(secondIp));
-        if(Objects.nonNull(type))
+        if (!type.isEmpty())
             stream = stream.filter(e -> e.getType().equals(type));
         return stream.collect(Collectors.toList());
     }

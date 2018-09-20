@@ -4,8 +4,10 @@ package com.mTrepka.simpleShop.controller;
 import com.mTrepka.simpleShop.domain.Cart;
 import com.mTrepka.simpleShop.domain.Category;
 import com.mTrepka.simpleShop.domain.Item;
+import com.mTrepka.simpleShop.domain.ShippingOption;
 import com.mTrepka.simpleShop.service.ItemService;
 import com.mTrepka.simpleShop.service.LogService;
+import com.mTrepka.simpleShop.service.ShippingOptionService;
 import com.mTrepka.simpleShop.service.UserService;
 import com.mTrepka.simpleShop.utility.CustomModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class AppRestController implements ApplicationController{
     private LogService logService;
     @Autowired
     private CustomModel customModel;
+    @Autowired
+    private ShippingOptionService shippingOptionService;
 
     @Override
     @GetMapping("/")
@@ -96,11 +100,15 @@ public class AppRestController implements ApplicationController{
     }
 
     @Override
-    @PostMapping("/shop/cart/")
-    public ModelAndView addItemToCart(@Valid int id, @Valid int amount, HttpServletRequest request) {
+    @PostMapping("/shop/item/{itemId}")
+    public ModelAndView addItemToCart(@PathVariable("itemId") int id, @Valid int amount, HttpServletRequest request) {
+        if (amount != 0 && id != 0)
         itemService.addItemToCart(id,amount);
-        return customModel.getCustomModelAndView("shop/cart")
-                .addObject("items", userService.getCurrentUser().getCart().getItems());
+        Item item = itemService.getItemById(id);
+        if (Objects.isNull(item))
+            return customModel.getCustomModelAndView("notFound");
+        return customModel.getCustomModelAndView("shop/item")
+                .addObject("item", item);
     }
 
     @Override
@@ -131,7 +139,7 @@ public class AppRestController implements ApplicationController{
     @Override
     public ModelAndView getLogsWithFilter(@Valid String ip, @Valid String secondIp, @Valid String type) {
         return customModel.getCustomModelAndView("admin/logs")
-                .addObject(logService.getLogsWithFilters(ip,secondIp,type));
+                .addObject("logs", logService.getLogsWithFilters(ip, secondIp, type));
     }
 
     @Override
@@ -171,6 +179,7 @@ public class AppRestController implements ApplicationController{
     }
 
     @PostMapping("/admin/new-item")
+    @Override
     public ModelAndView postAddNewItem(@Valid Item item, @Valid String cat) {
         itemService.saveItem(item, cat);
         return customModel.getCustomModelAndView("info")
@@ -197,8 +206,54 @@ public class AppRestController implements ApplicationController{
     public ModelAndView deleteItem(@PathVariable("id") int id) {
         itemService.deleteItemById(id);
         return customModel.getCustomModelAndView("info")
-                .addObject("info","Item zostal usunięty!");
+                .addObject("info", "Item zostal usunięty!");
     }
+
+    @GetMapping("/admin/shipping-option")
+    @Override
+    public ModelAndView getShippingOption() {
+        return customModel.getCustomModelAndView("admin/shippingOptions")
+                .addObject("shippingList", shippingOptionService.findAll());
+    }
+
+    @GetMapping("/admin/shipping-option-new")
+    @Override
+    public ModelAndView getAddShippingOption() {
+        return customModel.getCustomModelAndView("admin/newShippingOption")
+                .addObject("shipping", new ShippingOption());
+    }
+
+    @PostMapping("/admin/shipping-option-new")
+    @Override
+    public ModelAndView postAddShippingOption(@Valid ShippingOption shipping) {
+        shippingOptionService.save(shipping);
+        return customModel.getCustomModelAndView("info")
+                .addObject("info", "Shipping option has been created.");
+    }
+
+    @GetMapping("/admin/shipping-option/{id}")
+    @Override
+    public ModelAndView editGetShippingOption(@PathVariable("id") int id) {
+        return customModel.getCustomModelAndView("admin/shippingOptionEdit")
+                .addObject("shipping", shippingOptionService.findById(id));
+    }
+
+    @GetMapping("/admin/shipping-option-del/{id}")
+    @Override
+    public ModelAndView removeShippingOption(@PathVariable("id") int id) {
+        shippingOptionService.delete(id);
+        return customModel.getCustomModelAndView("info")
+                .addObject("info", "Shipping option has been deleted.");
+    }
+
+    @PostMapping("/admin/shipping-option/{id}")
+    @Override
+    public ModelAndView editPostShippingOption(ShippingOption shipping) {
+        shippingOptionService.save(shipping);
+        return customModel.getCustomModelAndView("info")
+                .addObject("info", "Shipping option has been changed.");
+    }
+
 
     @GetMapping("/settings")
     @Override
@@ -226,4 +281,6 @@ public class AppRestController implements ApplicationController{
         return customModel.getCustomModelAndView("user/security")
                 .addObject("logs", userService.getCurrentUser().getLogs());
     }
+
+
 }
