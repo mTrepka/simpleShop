@@ -1,6 +1,7 @@
 package com.mTrepka.simpleShop.configuration;
 
 
+import com.mTrepka.simpleShop.dataAspect.ItemAspectController;
 import com.mTrepka.simpleShop.dataAspect.RegistrationAspectController;
 import com.mTrepka.simpleShop.dataAspect.ShippingOptionAspectController;
 import com.mTrepka.simpleShop.dataAspect.UserAspectController;
@@ -52,7 +53,8 @@ public class AppConfiguration {
     }
     @Bean
     ShippingOptionAspectController shippingOptionAspectController() {return new ShippingOptionAspectController();}
-
+    @Bean
+    ItemAspectController itemAspectController() {return new ItemAspectController();}
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();

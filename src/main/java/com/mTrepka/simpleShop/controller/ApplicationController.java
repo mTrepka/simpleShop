@@ -3,7 +3,6 @@ package com.mTrepka.simpleShop.controller;
 
 import com.mTrepka.simpleShop.domain.Item;
 import com.mTrepka.simpleShop.domain.ShippingOption;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +27,13 @@ public interface ApplicationController {
     ModelAndView getItem(int id);
     ModelAndView getAddNewItem();
 
-    ModelAndView postAddNewItem(Item item, String cat);
+    ModelAndView postAddNewItem(Item item, String cat,HttpServletRequest request);
     ModelAndView editGetItem(int id);
-    ModelAndView editPostItem(Item item);
+    ModelAndView editPostItem(Item item,HttpServletRequest request);
 
     ModelAndView getShippingOption();
 
-    ModelAndView deleteItem(int id);
+    ModelAndView removeItem(int id,HttpServletRequest request);
     ModelAndView getLogs();
     ModelAndView getLogsWithFilter(String ip,String secondIp,String type);
 
@@ -45,7 +44,7 @@ public interface ApplicationController {
 
     ModelAndView postAddShippingOption(ShippingOption shipping,HttpServletRequest request);
     ModelAndView editGetShippingOption(int id);
-    ModelAndView removeShippingOption(@PathVariable("id") int id,HttpServletRequest request);
+    ModelAndView removeShippingOption( int id,HttpServletRequest request);
     ModelAndView editPostShippingOption(ShippingOption shipping,HttpServletRequest request);
 
     ModelAndView userSettings();

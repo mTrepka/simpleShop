@@ -180,7 +180,7 @@ public class AppRestController implements ApplicationController{
 
     @PostMapping("/admin/new-item")
     @Override
-    public ModelAndView postAddNewItem(@Valid Item item, @Valid String cat) {
+    public ModelAndView postAddNewItem(@Valid Item item, @Valid String cat,HttpServletRequest request) {
         itemService.saveItem(item, cat);
         return customModel.getCustomModelAndView("info")
                 .addObject("info","Item zostal dodany!");
@@ -195,7 +195,7 @@ public class AppRestController implements ApplicationController{
 
     @PostMapping("/admin/item/edit/{id}")
     @Override
-    public ModelAndView editPostItem(Item item) {
+    public ModelAndView editPostItem(Item item,HttpServletRequest request) {
         return customModel.getCustomModelAndView("admin/itemEdit")
                 .addObject("item",item)
                 .addObject("info","Item został zmieniony");
@@ -203,7 +203,7 @@ public class AppRestController implements ApplicationController{
 
     @PostMapping("/admin/item/delete/{id}")
     @Override
-    public ModelAndView deleteItem(@PathVariable("id") int id) {
+    public ModelAndView removeItem(@PathVariable("id") int id,HttpServletRequest request) {
         itemService.deleteItemById(id);
         return customModel.getCustomModelAndView("info")
                 .addObject("info", "Item zostal usunięty!");
