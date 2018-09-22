@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<HTML xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/defaultHead :: head"/>
+</head>
+<body>
+<div class="container clas">
+    <div th:replace="fragments/menu :: menu"/>
+    <div th:replace="fragments/settingsMenu :: settingsMenu"/>
+    <form action="#" th:object="${address}" method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+        <label>City</label>
+        <input type="text" th:field="*{city}" class="form-control" placeholder="Enter city" required="required">
+    </div>
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" th:field="*{Country}" class="form-control" placeholder="Enter country" required="required">
+        </div>
+        <div class="form-group">
+            <label>Home number</label>
+            <input type="text" th:field="*{homeNumber}" class="form-control" placeholder="Enter home number"
+                   required="required">
+        </div>
+        <div class="form-group">
+            <label>Postal Adress</label>
+            <input type="text" th:field="*{postalAdress}" class="form-control" placeholder="Enter postal adress" required="required">
+        </div>
+        <div class="form-group">
+            <label>Street</label>
+            <input type="text" th:field="*{street1line}" class="form-control" placeholder="Enter street" required="required">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<div th:replace="fragments/scripts :: scripts"/>
+</body>
+</HTML>

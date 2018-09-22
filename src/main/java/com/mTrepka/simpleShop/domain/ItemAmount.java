@@ -15,6 +15,7 @@ public class ItemAmount {
     @ManyToOne
     private Cart Cart;
 
+
     public com.mTrepka.simpleShop.domain.Cart getCart() {
         return Cart;
     }

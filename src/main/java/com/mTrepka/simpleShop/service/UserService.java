@@ -1,5 +1,6 @@
 package com.mTrepka.simpleShop.service;
 
+import com.mTrepka.simpleShop.domain.Adress;
 import com.mTrepka.simpleShop.domain.User;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface UserService{
     List<User> getAllUsers();
 
     String changeUser(String name, String lastName, String password, String repeatPassword, String oldPassword);
+    void save(User u);
+
+    void buyCart(int shipping, Adress address);
 }

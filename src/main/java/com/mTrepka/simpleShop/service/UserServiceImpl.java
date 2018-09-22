@@ -1,9 +1,7 @@
 package com.mTrepka.simpleShop.service;
 
 
-import com.mTrepka.simpleShop.domain.Cart;
-import com.mTrepka.simpleShop.domain.Role;
-import com.mTrepka.simpleShop.domain.User;
+import com.mTrepka.simpleShop.domain.*;
 import com.mTrepka.simpleShop.repository.RoleRepository;
 import com.mTrepka.simpleShop.repository.UserRepository;
 import com.mTrepka.simpleShop.utility.RandomString;
@@ -24,6 +22,17 @@ public class UserServiceImpl implements UserService{
     private EmailSender emailSender;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private ShippingService shippingService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private ShippingOptionService shippingOptionService;
+    @Autowired
+    private OrderService orderService;
+
     @Override
     public User getCurrentUser() {
         return findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -63,8 +72,15 @@ public class UserServiceImpl implements UserService{
             newUser.setName(name);
             newUser.setLastName(lastName);
             newUser.setActive(true);
+            Cart cart = new Cart();
+            cart.setUser(newUser);
+            Adress adress = new Adress();
+            adress.setUser(newUser);
+            addressService.save(adress);
+            newUser.setAdress(adress);
+            cartService.save(cart);
+            newUser.setCart(cart);
             userRepository.save(newUser);
-            newUser.setCart(new Cart());
             return true;
         }
         return false;
@@ -93,5 +109,37 @@ public class UserServiceImpl implements UserService{
     @Override
     public String changeUser(String name, String lastName, String password, String repeatPassword, String oldPassword) {
         return null;
+    }
+
+    @Override
+    public void save(User u) {
+        userRepository.save(u);
+    }
+
+    @Override
+    public void buyCart(int shipping, Adress address) {
+        User current = getCurrentUser();
+
+        Order order = new Order();
+        order.setCart(current.getCart());
+
+        Cart newCart = new Cart();
+        cartService.save(newCart);
+        current.setCart(newCart);
+
+        Shipping shipp = new Shipping();
+        if(current.equals(address))
+        {shipp.setAdress(current.getAdress());}
+        else{
+            addressService.save(address);
+            shipp.setAdress(address);
+        }
+        shipp.setOption(shippingOptionService.findById(shipping));
+        shippingService.save(shipp);
+
+        order.setShipping(shipp);
+        orderService.save(order);
+        current.getOrders().add(order);
+        userRepository.save(current);
     }
 }

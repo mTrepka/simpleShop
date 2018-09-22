@@ -19,6 +19,6 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public void save(Cart c) {
-        cartRepository.save(c);
+        cartRepository.saveAndFlush(c);
     }
 }

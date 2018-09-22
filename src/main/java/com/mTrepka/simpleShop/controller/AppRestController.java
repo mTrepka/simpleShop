@@ -1,14 +1,8 @@
 package com.mTrepka.simpleShop.controller;
 
 
-import com.mTrepka.simpleShop.domain.Cart;
-import com.mTrepka.simpleShop.domain.Category;
-import com.mTrepka.simpleShop.domain.Item;
-import com.mTrepka.simpleShop.domain.ShippingOption;
-import com.mTrepka.simpleShop.service.ItemService;
-import com.mTrepka.simpleShop.service.LogService;
-import com.mTrepka.simpleShop.service.ShippingOptionService;
-import com.mTrepka.simpleShop.service.UserService;
+import com.mTrepka.simpleShop.domain.*;
+import com.mTrepka.simpleShop.service.*;
 import com.mTrepka.simpleShop.utility.CustomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -36,7 +30,8 @@ public class AppRestController implements ApplicationController{
     private CustomModel customModel;
     @Autowired
     private ShippingOptionService shippingOptionService;
-
+    @Autowired
+    private AddressService addressService;
     @Override
     @GetMapping("/")
     public ModelAndView getIndex() {
@@ -153,7 +148,7 @@ public class AppRestController implements ApplicationController{
     @Override
     public ModelAndView getUser(@PathVariable("id") int id) {
         return customModel.getCustomModelAndView("admin/user")
-                .addObject("user",userService.findById(id));
+                .addObject("user",userService.findById(id).get());
     }
 
     @GetMapping("/admin/items")
@@ -282,5 +277,37 @@ public class AppRestController implements ApplicationController{
                 .addObject("logs", userService.getCurrentUser().getLogs());
     }
 
+    @GetMapping("/settings/address")
+    @Override
+    public ModelAndView userGetAddress() {
+        return customModel.getCustomModelAndView("user/address")
+                .addObject("address", userService.getCurrentUser().getAdress());
+    }
 
+    @PostMapping("/settings/address")
+    @Override
+    public ModelAndView userPostAddress(@Valid Adress adress) {
+        addressService.save(adress);
+        return customModel.getCustomModelAndView("user/address")
+                .addObject("address", userService.getCurrentUser().getAdress());
+    }
+
+    @GetMapping("/shop/cart/buy")
+    //@Override
+    public ModelAndView userBuyGet() {
+        User currentUser = userService.getCurrentUser();
+        return customModel.getCustomModelAndView("shop/buy")
+                .addObject("items", currentUser.getCart().getItems())
+                .addObject("shippingList",shippingOptionService.findAll())
+                .addObject("address",currentUser.getAdress())
+                .addObject("value", currentUser.getCart().getValue());
+    }
+
+    @PostMapping("/shop/cart/buy")
+    //@Override
+    public ModelAndView userBuyPost(@Valid int shipping,@Valid Adress address) {
+        userService.buyCart(shipping,address);
+        return customModel.getCustomModelAndView("user/address")
+                .addObject("address", userService.getCurrentUser().getAdress());
+    }
 }

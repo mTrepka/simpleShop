@@ -25,14 +25,14 @@
     <p th:text="${user.adress.postalAdress}"/>
     <p th:text="${user.adress.homeNumber}"/>
     <p th:text="${user.adress.street1line}"/>
-    <p th:text="${user.adress.street2line}"/>
     </p>
     <p>
         <div th:each="order :${user.orders}">
     <p>items</p>
     <div th:each="item :${order.cart.items}">
-        <div th:text="${item.name}"/>
-        <div th:text="${item.value}"/>
+        <div th:text="${item.item.name}"/>
+        <div th:text="${item.item.value}"/>
+        <div th:text="${item.amount}"/>
     </div>
     <p>Shipping</p>
     <div th:text="${order.shipping.option.name}"/>
@@ -43,9 +43,9 @@
         <p th:text="${order.shipping.adress.postalAdress}"/>
         <p th:text="${order.shipping.adress.homeNumber}"/>
         <p th:text="${order.shipping.adress.street1line}"/>
-        <p th:text="${order.shipping.adress.street2line}"/>
         </p>
     </div>
+</div>
     <div th:replace="fragments/scripts :: scripts"/>
 </body>
 </HTML>

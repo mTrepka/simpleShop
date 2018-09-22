@@ -14,6 +14,7 @@
             <th scope="col">Name</th>
             <th scope="col">Value</th>
             <th scope="col">Category</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,17 @@
             <td th:text="${item.name}"/>
             <td th:text="${item.value}"/>
             <td th:text="${item.category.name}"/>
+            <td><a th:href="@{${href} +'admin/item/edit/'+${item.id}}"><img th:src="@{/images/remove.jpg}"
+                                                                                          width="16px"/></a>
+                <a th:href="@{${href} +'admin/item/delete/'+${item.id}}"><img th:src="@{/images/edit.png}"
+                                                                                      width="16px"/></a>
+            </td>
+        </tr>
+        <tr>
+            <th>-</th>
+            >
+            <td><a th:href="@{${href} +'admin/new-item'}">Add new item</a></td>
+            <td><a th:href="@{${href} +'admin/new-item'}">+</a></td>
         </tr>
         </tbody>
     </table>

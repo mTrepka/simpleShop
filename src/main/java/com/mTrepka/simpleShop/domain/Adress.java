@@ -2,7 +2,6 @@ package com.mTrepka.simpleShop.domain;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Adress {
@@ -10,20 +9,17 @@ public class Adress {
     @Id
     @GeneratedValue
     private long id;
-    @NotNull
     private String city;
-    @NotNull
     private String country;
-    @NotNull
     private String postalAdress;
-    @NotNull
     private String homeNumber;
-    @NotNull
     private String street1line;
-    @NotNull
-    private String street2line;
     @OneToOne(targetEntity = User.class)
     private User user;
+
+    public boolean equals(Adress obj) {
+        return city.equals(obj.getCity()) && country.equals(obj.getCountry()) && postalAdress.equals(obj.getPostalAdress()) && homeNumber.equals(obj.getHomeNumber()) && street1line.equals(obj.getStreet1line());
+    }
 
     public long getId() {
         return id;
@@ -71,14 +67,6 @@ public class Adress {
 
     public void setStreet1line(String street1line) {
         this.street1line = street1line;
-    }
-
-    public String getStreet2line() {
-        return street2line;
-    }
-
-    public void setStreet2line(String street2line) {
-        this.street2line = street2line;
     }
 
     public User getUser() {

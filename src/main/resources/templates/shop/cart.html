@@ -15,18 +15,31 @@
             <th scope="col">Value</th>
             <th scope="col">Category</th>
             <th scope="col">Amount</th>
+            <th scope="col">Total</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${items}">
             <th scope="row" th:text="${item.item.id}"/>
             <td th:text="${item.item.name}"/>
-            <td th:text="${item.item.value}"/>
             <td th:text="${item.item.category.name}"/>
+            <td th:text="${item.item.value}"/>
             <td th:text="${item.amount}"/>
+            <td th:text="${item.amount}*${item.item.value}"/>
+        </tr>
+        <tr>
+            <td />
+            <td />
+            <td />
+            <td />
+            <td />
+            <td th:text="${value}"/>
         </tr>
         </tbody>
     </table>
+    <form th:action="@{/shop/cart/buy}" method="get">
+        <button type="submit" class="btn btn-primary">Buy</button>
+    </form>
 </div>
 <div th:replace="fragments/scripts :: scripts"/>
 </body>

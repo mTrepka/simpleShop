@@ -13,6 +13,9 @@ public class Order {
     private Cart cart;
     @OneToOne
     private Shipping shipping;
+    @ManyToOne
+    private OrderStatus status;
+
 
     public long getId() {
         return id;

@@ -15,6 +15,10 @@ public class Cart {
     @OneToOne
     private User user;
 
+    public double  getValue(){
+        return items.stream().mapToDouble(e -> e.getItem().getValue()*e.getAmount()).sum();
+    }
+
     public long getId() {
         return id;
     }
@@ -33,10 +37,6 @@ public class Cart {
 
     public User getUser() {
         return user;
-    }
-
-    public double getValue(){
-        return 0;
     }
 
     public void setUser(User user) {
