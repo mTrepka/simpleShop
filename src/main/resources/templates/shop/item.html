@@ -8,16 +8,17 @@
 <div class="container clas">
     <div th:replace="fragments/menu :: menu"/>
     <div th:object="${item}">
-        <h5 th:text="*{name}"></h5>
-                    <p th:text="*{description}"></p>
-        <p th:text="*{value}"></p>
-                    <p th:text="*{category.name}"></p>
+        <h5 th:text="*{name}"/>
+        <p th:text="*{description}"/>
+        <p th:text="*{value}"/>
+        <p th:text="*{category.name}"/>
+        <img th:src="@{${href} +'image/'+*{id}}"/>
                 </div>
     <form action="#" method="POST" class="form">
         <h3>Add to cart</h3>
         <div class="form-group">
             <label for="amount">Amount</label>
-            <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount">
+            <input type="number" name="amount" class="form-control" id="amount" placeholder="Amount" required="required">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

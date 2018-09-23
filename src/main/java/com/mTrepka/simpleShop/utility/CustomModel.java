@@ -1,6 +1,6 @@
 package com.mTrepka.simpleShop.utility;
 
-import com.mTrepka.simpleShop.service.ItemService;
+import com.mTrepka.simpleShop.service.shop.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;

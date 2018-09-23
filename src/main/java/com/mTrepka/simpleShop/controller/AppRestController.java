@@ -2,14 +2,21 @@ package com.mTrepka.simpleShop.controller;
 
 
 import com.mTrepka.simpleShop.domain.*;
-import com.mTrepka.simpleShop.service.*;
+import com.mTrepka.simpleShop.service.AddressService;
+import com.mTrepka.simpleShop.service.LogService;
+import com.mTrepka.simpleShop.service.UserService;
+import com.mTrepka.simpleShop.service.shop.ItemService;
+import com.mTrepka.simpleShop.service.shop.ShippingOptionService;
 import com.mTrepka.simpleShop.utility.CustomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -117,6 +124,7 @@ public class AppRestController implements ApplicationController{
     @GetMapping("/shop/item/{itemId}")
     public ModelAndView getItem(@PathVariable("itemId")String itemId) {
         Item item = itemService.getItemById(Integer.parseInt(itemId));
+        System.out.println(item.getImage());
         if(Objects.isNull(item))
             return customModel.getCustomModelAndView("notFound");
         return customModel.getCustomModelAndView("shop/item")
@@ -175,8 +183,8 @@ public class AppRestController implements ApplicationController{
 
     @PostMapping("/admin/new-item")
     @Override
-    public ModelAndView postAddNewItem(@Valid Item item, @Valid String cat,HttpServletRequest request) {
-        itemService.saveItem(item, cat);
+    public ModelAndView postAddNewItem(@Valid Item item, @Valid String cat, HttpServletRequest request,@Valid MultipartFile myFile) {
+        itemService.saveItem(item, cat,myFile);
         return customModel.getCustomModelAndView("info")
                 .addObject("info","Item zostal dodany!");
     }
@@ -185,15 +193,18 @@ public class AppRestController implements ApplicationController{
     @Override
     public ModelAndView editGetItem(@PathVariable("id") int id) {
         return customModel.getCustomModelAndView("admin/itemEdit")
-                .addObject("newItem", itemService.getItemById(id));
+                .addObject("item", itemService.getItemById(id))
+                .addObject("categoryList", itemService.getAllCategory());
     }
 
     @PostMapping("/admin/item/edit/{id}")
     @Override
-    public ModelAndView editPostItem(Item item,HttpServletRequest request) {
+    public ModelAndView editPostItem(@Valid Item item, @Valid String cat,HttpServletRequest request,MultipartFile myFile) {
+        itemService.saveItem(item,cat,myFile);
         return customModel.getCustomModelAndView("admin/itemEdit")
                 .addObject("item",item)
-                .addObject("info","Item został zmieniony");
+                .addObject("info","Item został zmieniony")
+                .addObject("categoryList", itemService.getAllCategory());
     }
 
     @PostMapping("/admin/item/delete/{id}")
@@ -309,5 +320,16 @@ public class AppRestController implements ApplicationController{
         userService.buyCart(shipping,address);
         return customModel.getCustomModelAndView("user/address")
                 .addObject("address", userService.getCurrentUser().getAdress());
+    }
+
+    @Override
+    public ModelAndView accessDenied() {
+        return customModel.getCustomModelAndView("accessDenied");
+    }
+
+    @GetMapping("/image/{id}")
+    public Object image(@PathVariable("id") int id){
+        byte[] image = itemService.getItemById(id).getImage();
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
     }
 }

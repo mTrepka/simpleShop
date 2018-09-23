@@ -1,7 +1,8 @@
-package com.mTrepka.simpleShop.service;
+package com.mTrepka.simpleShop.service.shop;
 
 import com.mTrepka.simpleShop.domain.Category;
 import com.mTrepka.simpleShop.domain.Item;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface ItemService{
 
     void deleteItemById(long id);
 
-    void saveItem(Item item, String cat);
+    void saveItem(Item item, String cat, MultipartFile file);
 }

@@ -1,4 +1,4 @@
-package com.mTrepka.simpleShop.service;
+package com.mTrepka.simpleShop.service.shop;
 
 
 import com.mTrepka.simpleShop.domain.Cart;
@@ -8,8 +8,10 @@ import com.mTrepka.simpleShop.domain.ItemAmount;
 import com.mTrepka.simpleShop.repository.CategoryRepository;
 import com.mTrepka.simpleShop.repository.ItemAmountRepository;
 import com.mTrepka.simpleShop.repository.ItemRepository;
+import com.mTrepka.simpleShop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -90,7 +92,11 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public void saveItem(Item item, String cat) {
+    public void saveItem(Item item, String cat, MultipartFile file) {
+
+        try{
+        item.setImage(file.getBytes());}
+        catch (Exception e){ }
         item.setCategory(categoryRepository.findById(Long.parseLong(cat)).get());
         itemRepository.save(item);
     }

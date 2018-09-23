@@ -23,9 +23,9 @@
             <td th:text="${item.name}"/>
             <td th:text="${item.value}"/>
             <td th:text="${item.category.name}"/>
-            <td><a th:href="@{${href} +'admin/item/edit/'+${item.id}}"><img th:src="@{/images/remove.jpg}"
+            <td><a th:href="@{${href} +'admin/item/delete/'+${item.id}}"><img th:src="@{/images/remove.jpg}"
                                                                                           width="16px"/></a>
-                <a th:href="@{${href} +'admin/item/delete/'+${item.id}}"><img th:src="@{/images/edit.png}"
+                <a th:href="@{${href} +'admin/item/edit/'+${item.id}}"><img th:src="@{/images/edit.png}"
                                                                                       width="16px"/></a>
             </td>
         </tr>

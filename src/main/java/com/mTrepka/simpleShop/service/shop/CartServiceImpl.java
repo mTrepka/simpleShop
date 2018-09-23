@@ -1,8 +1,9 @@
-package com.mTrepka.simpleShop.service;
+package com.mTrepka.simpleShop.service.shop;
 
 
 import com.mTrepka.simpleShop.domain.Cart;
 import com.mTrepka.simpleShop.repository.CartRepository;
+import com.mTrepka.simpleShop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

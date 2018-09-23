@@ -1,4 +1,4 @@
-package com.mTrepka.simpleShop.service;
+package com.mTrepka.simpleShop.service.shop;
 
 import com.mTrepka.simpleShop.domain.ShippingOption;
 import com.mTrepka.simpleShop.repository.ShippingOptionRepository;

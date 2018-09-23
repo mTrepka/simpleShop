@@ -7,7 +7,7 @@
 <body>
 <div class="container clas">
     <div th:replace="fragments/menu :: menu"/>
-    <form th:action="@{/admin/new-item}" th:object="${item}" method="POST" enctype = "multipart/form-data">
+    <form th:action="@{'/admin/item/edit/'+${item.id}}" th:object="${item}" method="POST" enctype = "multipart/form-data">
         <div class="form-group">
             <label>Name</label>
             <input type="text" th:field="*{name}" class="form-control" placeholder="Enter name" required="required">
@@ -25,6 +25,7 @@
             <label>Image</label>
             <input type="file" name="myFile" />
         </div>
+        <img th:src="@{${href} +'image/'+*{id}}"/>
         <select name="cat">
             <option th:each="currentCategory : ${categoryList}"
                     th:value="${currentCategory.id}"

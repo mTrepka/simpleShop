@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +22,8 @@ public class ItemAspectController {
     private LogService logService;
 
     @After("execution(* com.mTrepka.simpleShop.controller.AppRestController.postAddNewItem(..)) &&"+
-            "args(item,cat,request)")
-    void addLog(Item item,String cat, HttpServletRequest request){
+            "args(item,cat,request,myFile)")
+    void addLog(Item item, String cat, HttpServletRequest request, MultipartFile myFile){
         UserLog log = CustomUserLog.getCustomUserLog(request);
         log.setDescription("Add item option with id "+item.getId());
         log.setType("ADD");
@@ -31,8 +32,8 @@ public class ItemAspectController {
     }
 
     @Before("execution(* com.mTrepka.simpleShop.controller.AppRestController.editPostItem(..)) &&"+
-            "args(item,request)")
-    void editLog(Item item,HttpServletRequest request){
+            "args(item,cat,request,myFile)")
+    void editLog(Item item,String cat,HttpServletRequest request,MultipartFile myFile){
         UserLog log = CustomUserLog.getCustomUserLog(request);
         log.setDescription("Edit item with id "+item.getId());
         log.setType("EDIT");

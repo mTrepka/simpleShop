@@ -4,12 +4,10 @@ package com.mTrepka.simpleShop.controller;
 import com.mTrepka.simpleShop.domain.Adress;
 import com.mTrepka.simpleShop.domain.Item;
 import com.mTrepka.simpleShop.domain.ShippingOption;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 public interface ApplicationController {
     ModelAndView getIndex();
@@ -31,9 +29,9 @@ public interface ApplicationController {
     ModelAndView getItem(int id);
     ModelAndView getAddNewItem();
 
-    ModelAndView postAddNewItem(Item item, String cat,HttpServletRequest request);
+    ModelAndView postAddNewItem(Item item, String cat, HttpServletRequest request, MultipartFile myFile);
     ModelAndView editGetItem(int id);
-    ModelAndView editPostItem(Item item,HttpServletRequest request);
+    ModelAndView editPostItem(Item item, String cat,HttpServletRequest request,MultipartFile myFile);
 
     ModelAndView getShippingOption();
 
@@ -48,16 +46,14 @@ public interface ApplicationController {
 
     ModelAndView postAddShippingOption(ShippingOption shipping,HttpServletRequest request);
     ModelAndView editGetShippingOption(int id);
-    ModelAndView removeShippingOption( int id,HttpServletRequest request);
+    ModelAndView removeShippingOption(int id,HttpServletRequest request);
     ModelAndView editPostShippingOption(ShippingOption shipping,HttpServletRequest request);
 
     ModelAndView userSettings();
     ModelAndView userSettingsChange(String name, String lastName, String password, String repeatPassword, String oldPassword);
     ModelAndView userSecurity();
 
-    @GetMapping("/settings/address")
     ModelAndView userGetAddress();
-
-    @PostMapping("/settings/address")
-    ModelAndView userPostAddress(@Valid Adress adress);
+    ModelAndView userPostAddress(Adress adress);
+    ModelAndView accessDenied();
 }

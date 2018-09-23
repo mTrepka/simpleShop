@@ -17,7 +17,7 @@ public class Item {
     private Category category;
     @OneToMany(targetEntity = Order.class)
     private List<Order> orders;
-
+    private byte[] image;
     @Override
     public String toString() {
         return "Item{" +
@@ -39,7 +39,13 @@ public class Item {
         this.orders = orders;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
 
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public boolean isActive() {
         return active;
