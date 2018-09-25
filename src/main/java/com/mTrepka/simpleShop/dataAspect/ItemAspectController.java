@@ -1,8 +1,8 @@
 package com.mTrepka.simpleShop.dataAspect;
 
 
-import com.mTrepka.simpleShop.domain.Item;
 import com.mTrepka.simpleShop.domain.UserLog;
+import com.mTrepka.simpleShop.domain.shop.Item;
 import com.mTrepka.simpleShop.service.LogService;
 import com.mTrepka.simpleShop.service.UserService;
 import com.mTrepka.simpleShop.utility.CustomUserLog;

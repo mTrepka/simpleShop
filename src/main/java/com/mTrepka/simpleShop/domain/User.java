@@ -1,6 +1,8 @@
 package com.mTrepka.simpleShop.domain;
 
 
+import com.mTrepka.simpleShop.domain.shop.Cart;
+import com.mTrepka.simpleShop.domain.shop.Order;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -38,7 +40,7 @@ public class User {
     private List<UserLog> logs;
 
 
-    @OneToMany
+    @OneToMany(targetEntity = Order.class)
     private List<Order> orders;
 
 

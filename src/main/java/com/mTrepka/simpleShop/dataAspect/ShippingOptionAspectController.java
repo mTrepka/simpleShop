@@ -1,8 +1,8 @@
 package com.mTrepka.simpleShop.dataAspect;
 
 
-import com.mTrepka.simpleShop.domain.ShippingOption;
 import com.mTrepka.simpleShop.domain.UserLog;
+import com.mTrepka.simpleShop.domain.shop.ShippingOption;
 import com.mTrepka.simpleShop.service.LogService;
 import com.mTrepka.simpleShop.service.UserService;
 import com.mTrepka.simpleShop.service.shop.ShippingOptionService;

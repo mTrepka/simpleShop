@@ -1,4 +1,4 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +18,7 @@ public class Item {
     @OneToMany(targetEntity = Order.class)
     private List<Order> orders;
     private byte[] image;
+    private boolean active;
     @Override
     public String toString() {
         return "Item{" +
@@ -54,8 +55,6 @@ public class Item {
     public void setActive(boolean active) {
         this.active = active;
     }
-
-    private boolean active;
 
     public long getId() {
         return id;

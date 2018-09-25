@@ -8,23 +8,45 @@
 <div class="container clas">
     <div th:replace="fragments/menu :: menu"/>
     <div th:replace="fragments/settingsMenu :: settingsMenu"/>
-    <div th:each="order :${orders}">
+    <div th:each="order :${orders}" style="border:2px bisque solid">
         <h2>Items</h2>
-        <div th:each="item :${order.cart.items}">
-            <div th:text="${item.name}"/>
-            <div th:text="${item.value}"/>
-        </div>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Value</td>
+                <td>Amount</td>
+            </tr>
+        <tr th:each="item :${order.cart.items}">
+            <td th:text="${item.item.name}"/>
+            <td th:text="${item.item.value}"/>
+            <td th:text="${item.amount}"/>
+        </tr>
+    </table>
         <h2>Shipping</h2>
+        <h5>Name</h5>
         <div th:text="${order.shipping.option.name}"/>
+        <h5>Cost</h5>
         <div th:text="${order.shipping.option.cost}"/>
         <div>
-            <p th:text="${order.shipping.adress.city}"/>
-            <p th:text="${order.shipping.adress.country}"/>
-            <p th:text="${order.shipping.adress.postalAdress}"/>
-            <p th:text="${order.shipping.adress.homeNumber}"/>
-            <p th:text="${order.shipping.adress.street1line}"/>
-            <p th:text="${order.shipping.adress.street2line}"/>
-            </p>
+            <h5>Address</h5>
+            <table>
+                <tr>
+                    <td>City</td>
+            <td th:text="${order.shipping.adress.city}"/>
+                </tr><tr>
+                <td>Country</td>
+            <td th:text="${order.shipping.adress.country}"/>
+            </tr><tr>
+                <td>Postal Adress</td>
+            <td th:text="${order.shipping.adress.postalAdress}"/>
+            </tr><tr>
+                <td>Home number</td>
+            <td th:text="${order.shipping.adress.homeNumber}"/>
+            </tr><tr>
+                <td>Street</td>
+            <td th:text="${order.shipping.adress.street1line}"/>
+            </tr>
+            </table>
         </div>
     </div>
 </div>

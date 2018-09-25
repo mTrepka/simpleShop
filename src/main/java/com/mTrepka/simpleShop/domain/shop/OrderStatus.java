@@ -1,4 +1,4 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
 
 
 import javax.persistence.Column;
@@ -11,14 +11,14 @@ public class OrderStatus {
     @Column(name = "order_status_id")
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
     private String name;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

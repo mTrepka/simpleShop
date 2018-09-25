@@ -1,7 +1,12 @@
 package com.mTrepka.simpleShop.service;
 
 
-import com.mTrepka.simpleShop.domain.*;
+import com.mTrepka.simpleShop.domain.Adress;
+import com.mTrepka.simpleShop.domain.Role;
+import com.mTrepka.simpleShop.domain.User;
+import com.mTrepka.simpleShop.domain.shop.Cart;
+import com.mTrepka.simpleShop.domain.shop.Order;
+import com.mTrepka.simpleShop.domain.shop.Shipping;
 import com.mTrepka.simpleShop.repository.RoleRepository;
 import com.mTrepka.simpleShop.repository.UserRepository;
 import com.mTrepka.simpleShop.service.shop.CartService;
@@ -82,8 +87,8 @@ public class UserServiceImpl implements UserService{
             adress.setUser(newUser);
             addressService.save(adress);
             newUser.setAdress(adress);
-            cartService.save(cart);
             newUser.setCart(cart);
+            cartService.save(cart);
             userRepository.save(newUser);
             return true;
         }
@@ -126,8 +131,10 @@ public class UserServiceImpl implements UserService{
 
         Order order = new Order();
         order.setCart(current.getCart());
+        current.getCart().setUser(null);
 
         Cart newCart = new Cart();
+        newCart.setUser(current);
         cartService.save(newCart);
         current.setCart(newCart);
 
@@ -142,6 +149,7 @@ public class UserServiceImpl implements UserService{
         shippingService.save(shipp);
 
         order.setShipping(shipp);
+        order.setUser(current);
         orderService.save(order);
         current.getOrders().add(order);
         userRepository.save(current);

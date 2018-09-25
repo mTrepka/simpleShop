@@ -1,5 +1,7 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
 
+
+import com.mTrepka.simpleShop.domain.User;
 
 import javax.persistence.*;
 
@@ -8,20 +10,37 @@ public class Order {
     @Column(name = "order_id")
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
     @OneToOne
     private Cart cart;
     @OneToOne
     private Shipping shipping;
     @ManyToOne
     private OrderStatus status;
+    @ManyToOne(targetEntity = User.class)
+    private User user;
 
+    public OrderStatus getStatus() {
+        return status;
+    }
 
-    public long getId() {
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

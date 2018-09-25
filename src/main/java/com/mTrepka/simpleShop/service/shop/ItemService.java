@@ -1,7 +1,7 @@
 package com.mTrepka.simpleShop.service.shop;
 
-import com.mTrepka.simpleShop.domain.Category;
-import com.mTrepka.simpleShop.domain.Item;
+import com.mTrepka.simpleShop.domain.shop.Category;
+import com.mTrepka.simpleShop.domain.shop.Item;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

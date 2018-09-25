@@ -1,4 +1,6 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
+
+import com.mTrepka.simpleShop.domain.Adress;
 
 import javax.persistence.*;
 

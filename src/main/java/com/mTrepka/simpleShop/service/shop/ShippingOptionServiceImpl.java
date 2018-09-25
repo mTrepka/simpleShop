@@ -1,6 +1,6 @@
 package com.mTrepka.simpleShop.service.shop;
 
-import com.mTrepka.simpleShop.domain.ShippingOption;
+import com.mTrepka.simpleShop.domain.shop.ShippingOption;
 import com.mTrepka.simpleShop.repository.ShippingOptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

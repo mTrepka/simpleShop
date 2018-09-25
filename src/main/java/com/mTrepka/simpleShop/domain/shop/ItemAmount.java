@@ -1,4 +1,4 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
 
 
 import javax.persistence.*;
@@ -16,11 +16,11 @@ public class ItemAmount {
     private Cart Cart;
 
 
-    public com.mTrepka.simpleShop.domain.Cart getCart() {
+    public com.mTrepka.simpleShop.domain.shop.Cart getCart() {
         return Cart;
     }
 
-    public void setCart(com.mTrepka.simpleShop.domain.Cart cart) {
+    public void setCart(com.mTrepka.simpleShop.domain.shop.Cart cart) {
         Cart = cart;
     }
 

@@ -1,7 +1,7 @@
 package com.mTrepka.simpleShop.repository;
 
 
-import com.mTrepka.simpleShop.domain.Shipping;
+import com.mTrepka.simpleShop.domain.shop.Shipping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

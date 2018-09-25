@@ -1,10 +1,10 @@
 package com.mTrepka.simpleShop.service.shop;
 
 
-import com.mTrepka.simpleShop.domain.Cart;
-import com.mTrepka.simpleShop.domain.Category;
-import com.mTrepka.simpleShop.domain.Item;
-import com.mTrepka.simpleShop.domain.ItemAmount;
+import com.mTrepka.simpleShop.domain.shop.Cart;
+import com.mTrepka.simpleShop.domain.shop.Category;
+import com.mTrepka.simpleShop.domain.shop.Item;
+import com.mTrepka.simpleShop.domain.shop.ItemAmount;
 import com.mTrepka.simpleShop.repository.CategoryRepository;
 import com.mTrepka.simpleShop.repository.ItemAmountRepository;
 import com.mTrepka.simpleShop.repository.ItemRepository;
@@ -67,7 +67,12 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public void addItemToCart(Item item, int amount) {
         Cart cart = cartService.getCurrentUserCart();
-        //cart.getItems().add(item);
+        ItemAmount itemAmount = new ItemAmount();
+        itemAmount.setCart(cart);
+        itemAmount.setAmount(amount);
+        itemAmount.setItem(item);
+        cart.getItems().add(itemAmount);
+        itemAmountRepository.save(itemAmount);
         cartService.save(cart);
     }
 

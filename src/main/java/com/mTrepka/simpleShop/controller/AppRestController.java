@@ -1,11 +1,18 @@
 package com.mTrepka.simpleShop.controller;
 
 
-import com.mTrepka.simpleShop.domain.*;
+import com.mTrepka.simpleShop.domain.Adress;
+import com.mTrepka.simpleShop.domain.User;
+import com.mTrepka.simpleShop.domain.shop.Cart;
+import com.mTrepka.simpleShop.domain.shop.Category;
+import com.mTrepka.simpleShop.domain.shop.Item;
+import com.mTrepka.simpleShop.domain.shop.ShippingOption;
 import com.mTrepka.simpleShop.service.AddressService;
 import com.mTrepka.simpleShop.service.LogService;
 import com.mTrepka.simpleShop.service.UserService;
 import com.mTrepka.simpleShop.service.shop.ItemService;
+import com.mTrepka.simpleShop.service.shop.OrderService;
+import com.mTrepka.simpleShop.service.shop.OrderStatusService;
 import com.mTrepka.simpleShop.service.shop.ShippingOptionService;
 import com.mTrepka.simpleShop.utility.CustomModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +46,10 @@ public class AppRestController implements ApplicationController{
     private ShippingOptionService shippingOptionService;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderStatusService orderStatusService;
     @Override
     @GetMapping("/")
     public ModelAndView getIndex() {
@@ -124,7 +135,6 @@ public class AppRestController implements ApplicationController{
     @GetMapping("/shop/item/{itemId}")
     public ModelAndView getItem(@PathVariable("itemId")String itemId) {
         Item item = itemService.getItemById(Integer.parseInt(itemId));
-        System.out.println(item.getImage());
         if(Objects.isNull(item))
             return customModel.getCustomModelAndView("notFound");
         return customModel.getCustomModelAndView("shop/item")
@@ -278,7 +288,7 @@ public class AppRestController implements ApplicationController{
     @Override
     public ModelAndView userHistory() {
         return customModel.getCustomModelAndView("user/history")
-                .addObject(userService.getCurrentUser().getOrders());
+                .addObject("orders",userService.getCurrentUser().getOrders());
     }
 
     @GetMapping("/settings/security")
@@ -318,11 +328,36 @@ public class AppRestController implements ApplicationController{
     //@Override
     public ModelAndView userBuyPost(@Valid int shipping,@Valid Adress address) {
         userService.buyCart(shipping,address);
-        return customModel.getCustomModelAndView("user/address")
-                .addObject("address", userService.getCurrentUser().getAdress());
+        return customModel.getCustomModelAndView("info")
+                .addObject("info", "Item has been bought");
+    }
+
+
+    @GetMapping("/admin/order")
+    @Override
+    public ModelAndView ordersGet(HttpServletRequest request) {
+        return customModel.getCustomModelAndView("admin/orders")
+                .addObject("orders", orderService.getAll());
+    }
+
+    @GetMapping("/admin/order/{id}")
+    @Override
+    public ModelAndView ordersGet(@PathVariable("id") int id, HttpServletRequest request) {
+        return customModel.getCustomModelAndView("admin/order")
+                .addObject("order", orderService.getById(id))
+                .addObject("orderStatusList",orderStatusService.getAll());
+    }
+
+    @PostMapping("/admin/order/{id}")
+    public ModelAndView ordersUpdate(@PathVariable("id") int id,@Valid int statusId, HttpServletRequest request) {
+        orderService.update(id,statusId);
+        return customModel.getCustomModelAndView("admin/order")
+                .addObject("order", orderService.getById(id))
+                .addObject("orderStatusList",orderStatusService.getAll());
     }
 
     @Override
+    @GetMapping("/access-denied")
     public ModelAndView accessDenied() {
         return customModel.getCustomModelAndView("accessDenied");
     }

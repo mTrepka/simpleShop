@@ -1,4 +1,6 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
+
+import com.mTrepka.simpleShop.domain.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,6 +19,15 @@ public class Cart {
 
     public double  getValue(){
         return items.stream().mapToDouble(e -> e.getItem().getValue()*e.getAmount()).sum();
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", items=" + items +
+                ", user=" + user +
+                '}';
     }
 
     public long getId() {

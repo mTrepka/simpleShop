@@ -1,6 +1,6 @@
 package com.mTrepka.simpleShop.service.shop;
 
-import com.mTrepka.simpleShop.domain.ShippingOption;
+import com.mTrepka.simpleShop.domain.shop.ShippingOption;
 
 import java.util.List;
 

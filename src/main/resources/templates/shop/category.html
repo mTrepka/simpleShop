@@ -11,12 +11,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Item</th>
                 <th scope="col">Cena</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item : ${items}" style="margin-top:10px;" class="">
+                <td><img th:src="@{${href} +'image/'+${item.id}}" style="width: 64px;"/></td>
                 <td><a th:href="@{${href} +'shop/item/'+ ${item.id}}" th:text="${item.name}"></td>
                 <td th:text="${item.value}"/>
 

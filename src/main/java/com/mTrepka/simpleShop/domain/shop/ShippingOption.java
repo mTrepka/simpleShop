@@ -1,4 +1,4 @@
-package com.mTrepka.simpleShop.domain;
+package com.mTrepka.simpleShop.domain.shop;
 
 
 import javax.persistence.Column;

@@ -2,8 +2,10 @@ package com.mTrepka.simpleShop.controller;
 
 
 import com.mTrepka.simpleShop.domain.Adress;
-import com.mTrepka.simpleShop.domain.Item;
-import com.mTrepka.simpleShop.domain.ShippingOption;
+import com.mTrepka.simpleShop.domain.shop.Item;
+import com.mTrepka.simpleShop.domain.shop.ShippingOption;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,5 +57,12 @@ public interface ApplicationController {
 
     ModelAndView userGetAddress();
     ModelAndView userPostAddress(Adress adress);
+
+    @GetMapping("/admin/orders")
+    ModelAndView ordersGet(HttpServletRequest request);
+
+    @GetMapping("/admin/order/{id}")
+    ModelAndView ordersGet(@PathVariable("id") int id, HttpServletRequest request);
+
     ModelAndView accessDenied();
 }
