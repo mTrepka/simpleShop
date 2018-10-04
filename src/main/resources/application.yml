@@ -1,0 +1,21 @@
+spring:
+  datasource:
+      url: jdbc:mysql://localhost:3306/simpleshop
+      username: root
+      password:
+      testWhileIdle: true
+      validationQuery: SELECT 1
+  jpa:
+      show-sql: false
+      hibernate:
+                ddl-auto: update
+                naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      properties:
+                hibernate:
+                          dialect: org.hibernate.dialect.MySQL5Dialect
+
+app:
+  name: Owl Shop
+  mail:
+        username: null
+        password: null

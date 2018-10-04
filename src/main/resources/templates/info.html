@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <HTML xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title th:text="${title}"></title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <meta charset="UTF-8"/>
-    <!-- Bootstrap -->
-    <<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<head th:include="fragments/defaultHead :: head">
 </head>
 <body>
 <div class="container clas">

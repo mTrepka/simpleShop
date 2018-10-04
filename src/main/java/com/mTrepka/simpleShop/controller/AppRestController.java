@@ -1,6 +1,7 @@
 package com.mTrepka.simpleShop.controller;
 
 
+import com.lowagie.text.Image;
 import com.mTrepka.simpleShop.domain.Adress;
 import com.mTrepka.simpleShop.domain.User;
 import com.mTrepka.simpleShop.domain.shop.Cart;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -366,5 +368,16 @@ public class AppRestController implements ApplicationController{
     public Object image(@PathVariable("id") int id){
         byte[] image = itemService.getItemById(id).getImage();
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
+    }
+
+    @GetMapping("/static/favicon.ico")
+    public Object favicon(){
+        URL imageUrl = getClass().getResource("/static/favicon.ico");
+        try {
+            return Image.getInstance(imageUrl).getOriginalData();
+        }catch (Exception e){
+
+        }
+        return null;
     }
 }
