@@ -40,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/cart").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/health").permitAll()
                 .anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")

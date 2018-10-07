@@ -19,3 +19,7 @@ app:
   mail:
         username: null
         password: null
+logging:
+  level:
+    org:
+      hibernate: info
