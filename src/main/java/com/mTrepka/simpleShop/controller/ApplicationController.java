@@ -60,6 +60,7 @@ public interface ApplicationController {
     ModelAndView getLogsWithFilter(String ip,String secondIp,String type);
     @PostMapping("/admin/item/delete/{id}")
     ModelAndView removeItem(@PathVariable("id") int id, HttpServletRequest request);
+
     @GetMapping("/admin/shipping-option")
     ModelAndView getShippingOption();
     @GetMapping("/admin/shipping-option-new")
@@ -83,6 +84,20 @@ public interface ApplicationController {
     ModelAndView ordersGet(HttpServletRequest request);
     @GetMapping("/admin/order/{id}")
     ModelAndView ordersGet(@PathVariable("id") int id, HttpServletRequest request);
+
+    @GetMapping("/admin/categories")
+    ModelAndView getCategories();
+
+    @GetMapping("/admin/new-category")
+    ModelAndView getNewCategory();
+    @PostMapping("/admin/new-category")
+    ModelAndView postNewCategory(String name,Integer parentId);
+    @GetMapping("/admin/category/delete/{id}")
+    ModelAndView getDeleteCategory(@PathVariable("id") int categoryId);
+    @GetMapping("/admin/category/edit/{id}")
+    ModelAndView getEditCategory(@PathVariable("id") int categoryId);
+    @PostMapping("/admin/category/edit/{id}")
+    ModelAndView postEditCategory(@PathVariable("id") int categoryId,String name);
 
     @GetMapping("/settings")
     ModelAndView userSettings();

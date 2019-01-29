@@ -21,7 +21,7 @@
                     <a class="nav-link" th:href="@{${href} +'admin/items'}">Items</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{${href} +'admin/order'}">Orders</a>
+                    <a class="nav-link" th:href="@{${href} +'admin/orders'}">Orders</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{${href} +'admin/shipping-option'}">Shipping Option</a>
@@ -32,6 +32,7 @@
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{${href}+'admin/categories'}">All categories</a>
                         <div th:each="category : ${categories}" class="dropdown-item">
                             <a th:href="@{${href}+'shop/'+ ${category.name}}" th:text="${category.name}"></a>
                         </div>

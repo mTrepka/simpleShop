@@ -10,10 +10,7 @@ import com.mTrepka.simpleShop.domain.shop.ShippingOption;
 import com.mTrepka.simpleShop.service.AddressService;
 import com.mTrepka.simpleShop.service.LogService;
 import com.mTrepka.simpleShop.service.UserService;
-import com.mTrepka.simpleShop.service.shop.ItemService;
-import com.mTrepka.simpleShop.service.shop.OrderService;
-import com.mTrepka.simpleShop.service.shop.OrderStatusService;
-import com.mTrepka.simpleShop.service.shop.ShippingOptionService;
+import com.mTrepka.simpleShop.service.shop.*;
 import com.mTrepka.simpleShop.utility.CustomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -46,6 +43,8 @@ public class AppRestController implements ApplicationController{
     private OrderService orderService;
     @Autowired
     private OrderStatusService orderStatusService;
+    @Autowired
+    private CategoryService categoryService;
     @Override
     public ModelAndView getIndex() {
         return customModel.getCustomModelAndView("index");
@@ -244,6 +243,46 @@ public class AppRestController implements ApplicationController{
         shippingOptionService.save(shipping);
         return customModel.getCustomModelAndView("info")
                 .addObject("info", "Shipping option has been changed.");
+    }
+
+    @Override
+    public ModelAndView getCategories(){
+        return customModel.getCustomModelAndView("admin/categories")
+                .addObject("categories",categoryService.getAll());
+    }
+
+    @Override
+    public ModelAndView getNewCategory() {
+        return customModel.getCustomModelAndView("admin/newCategory")
+                .addObject("categories",categoryService.getAll());
+    }
+
+    @Override
+    public ModelAndView postNewCategory(String name, Integer parentId) {
+        int parent = parentId== null ? 0 : parentId.intValue();
+        categoryService.newCategory(name,parent);
+        return customModel.getCustomModelAndView("admin/categories")
+                .addObject("categories",categoryService.getAll());
+    }
+
+    @Override
+    public ModelAndView getDeleteCategory(@PathVariable("id") int categoryId) {
+        categoryService.deleteCategory(categoryId);
+        return customModel.getCustomModelAndView("admin/categories")
+                .addObject("categories",categoryService.getAll());
+    }
+
+    @Override
+    public ModelAndView postEditCategory(@PathVariable("id") int categoryId, String name) {
+        categoryService.editAndSave(categoryId,name);
+        return customModel.getCustomModelAndView("admin/newCategory")
+                .addObject("categories",categoryService.getAll());
+    }
+
+    @Override
+    public ModelAndView getEditCategory(@PathVariable("id") int categoryId) {
+        return customModel.getCustomModelAndView("admin/edit-category")
+                .addObject("category",categoryService.getById(categoryId));
     }
 
     @Override
