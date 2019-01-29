@@ -21,7 +21,7 @@ public class ItemAspectController {
     @Autowired
     private LogService logService;
 
-    @After("execution(* com.mTrepka.simpleShop.controller.AppRestController.postAddNewItem(..)) &&"+
+    @After("execution(* com.mTrepka.simpleShop.controller.AppAdminController.postAddNewItem(..)) &&" +
             "args(item,cat,request,myFile)")
     void addLog(Item item, String cat, HttpServletRequest request, MultipartFile myFile){
         UserLog log = CustomUserLog.getCustomUserLog(request);
@@ -31,7 +31,7 @@ public class ItemAspectController {
         logService.add(log);
     }
 
-    @Before("execution(* com.mTrepka.simpleShop.controller.AppRestController.editPostItem(..)) &&"+
+    @Before("execution(* com.mTrepka.simpleShop.controller.AppAdminController.editPostItem(..)) &&" +
             "args(item,cat,request,myFile)")
     void editLog(Item item,String cat,HttpServletRequest request,MultipartFile myFile){
         UserLog log = CustomUserLog.getCustomUserLog(request);
@@ -41,7 +41,7 @@ public class ItemAspectController {
         logService.add(log);
     }
 
-    @Before("execution(* com.mTrepka.simpleShop.controller.AppRestController.removeItem(..)) &&"+
+    @Before("execution(* com.mTrepka.simpleShop.controller.AppAdminController.removeItem(..)) &&" +
             "args(id,request)")
     void removeLog(int id,HttpServletRequest request){
         UserLog log = CustomUserLog.getCustomUserLog(request);

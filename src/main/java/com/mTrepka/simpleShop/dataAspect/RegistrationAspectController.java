@@ -20,7 +20,8 @@ public class RegistrationAspectController {
     private UserService userService;
     @Autowired
     private LogService logService;
-    @After("execution(* com.mTrepka.simpleShop.controller.AppRestController.postRegister(..)) &&"+
+
+    @After("execution(* com.mTrepka.simpleShop.controller.AppController.postRegister(..)) &&" +
             "args(email,request)")
     void userEmailRegister(String email,HttpServletRequest request){
         UserLog log = CustomUserLog.getCustomUserLog(request);
@@ -30,7 +31,7 @@ public class RegistrationAspectController {
         logService.add(log);
     }
 
-    @Before("execution(* com.mTrepka.simpleShop.controller.AppRestController.postSecondPartRegister(..)) &&"+
+    @Before("execution(* com.mTrepka.simpleShop.controller.AppController.postSecondPartRegister(..)) &&" +
             "args(code,firstPass,secondPass,request,name,lastName)")
     void userRegister(String code, String firstPass, String secondPass,HttpServletRequest request,String name,String lastName){
         User user = userService.findUserByCode(code);

@@ -22,7 +22,8 @@ public class ShippingOptionAspectController {
     private LogService logService;
     @Autowired
     private ShippingOptionService shippingOptionService;
-    @After("execution(* com.mTrepka.simpleShop.controller.AppRestController.postAddShippingOption(..)) &&"+
+
+    @After("execution(* com.mTrepka.simpleShop.controller.AppAdminController.postAddShippingOption(..)) &&" +
             "args(shipping,request)")
     void addLog(ShippingOption shipping, HttpServletRequest request){
         UserLog log = CustomUserLog.getCustomUserLog(request);
@@ -32,7 +33,7 @@ public class ShippingOptionAspectController {
         logService.add(log);
     }
 
-    @Before("execution(* com.mTrepka.simpleShop.controller.AppRestController.editPostShippingOption(..)) &&"+
+    @Before("execution(* com.mTrepka.simpleShop.controller.AppAdminController.editPostShippingOption(..)) &&" +
             "args(shipping,request)")
     void editLog(ShippingOption shipping,HttpServletRequest request){
         UserLog log = CustomUserLog.getCustomUserLog(request);
@@ -50,7 +51,7 @@ public class ShippingOptionAspectController {
         logService.add(log);
     }
 
-    @Before("execution(* com.mTrepka.simpleShop.controller.AppRestController.removeShippingOption(..)) &&"+
+    @Before("execution(* com.mTrepka.simpleShop.controller.AppAdminController.removeShippingOption(..)) &&" +
             "args(id,request)")
     void removeLog(int id,HttpServletRequest request){
         UserLog log = CustomUserLog.getCustomUserLog(request);
