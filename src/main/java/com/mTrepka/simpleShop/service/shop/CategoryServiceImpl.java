@@ -24,8 +24,11 @@ public class CategoryServiceImpl implements CategoryService {
         Category newCat = new Category();
         newCat.setName(name);
         if (parent.isPresent()){
+            Category par = parent.get();
+            newCat.setParent(par);
         }
         categoryRepository.save(newCat);
+
     }
 
     @Override
@@ -34,15 +37,21 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category editAndSave(int id, String name) {
+    public Category editAndSave(int id, String name, int parentId) {
         Category c = categoryRepository.findById((long)id).get();
         c.setName(name);
-        return categoryRepository.save(c);
+        c.setParent(categoryRepository.getOne((long) parentId));
+        categoryRepository.save(c);
+        return c;
     }
 
     @Override
     public Category getById(int categoryId) {
-        System.out.println(categoryId);
         return categoryRepository.getOne((long)categoryId);
+    }
+
+    @Override
+    public Category getRootCategory() {
+        return categoryRepository.findByName("root");
     }
 }

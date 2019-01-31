@@ -176,8 +176,8 @@ public class AppAdminController implements AppAdmin {
     }
 
     @Override
-    public ModelAndView postEditCategory(@PathVariable("id") int categoryId, String name) {
-        categoryService.editAndSave(categoryId, name);
+    public ModelAndView postEditCategory(@PathVariable("id") int categoryId, String name, int parentId) {
+        categoryService.editAndSave(categoryId, name, parentId);
         return customModel.getCustomModelAndView("admin/newCategory")
                 .addObject("categories", categoryService.getAll());
     }
@@ -185,7 +185,8 @@ public class AppAdminController implements AppAdmin {
     @Override
     public ModelAndView getEditCategory(@PathVariable("id") int categoryId) {
         return customModel.getCustomModelAndView("admin/edit-category")
-                .addObject("category", categoryService.getById(categoryId));
+                .addObject("category", categoryService.getById(categoryId))
+                .addObject("allCategories", categoryService.getAll());
     }
 
     @Override

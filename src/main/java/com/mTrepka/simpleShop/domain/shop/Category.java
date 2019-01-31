@@ -1,11 +1,14 @@
 package com.mTrepka.simpleShop.domain.shop;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
+@Data
 public class Category {
     @Column(name = "category_id")
     @Id
@@ -13,32 +16,11 @@ public class Category {
     private long id;
     @Column(name = "name")
     private String name;
-
     @OneToMany
     private List<Item> items;
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
+    @OneToMany(mappedBy = "parent")
+    private List<Category> childCategory;
+    @ManyToOne
+    @JoinColumn(name = "PARENT_ID")
+    private Category parent;
 }

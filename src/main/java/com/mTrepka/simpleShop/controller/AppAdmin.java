@@ -83,7 +83,7 @@ interface AppAdmin {
     ModelAndView getEditCategory(int categoryId);
 
     @PostMapping("/admin/category/edit/{id}")
-    ModelAndView postEditCategory(int categoryId, String name);
+    ModelAndView postEditCategory(int categoryId, String name, int parentId);
 
     @PostMapping("/admin/order/{id}")
     ModelAndView ordersUpdate(int id, int statusId, HttpServletRequest request);

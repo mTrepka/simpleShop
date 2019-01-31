@@ -11,6 +11,11 @@
             <label>Name</label>
             <input type="text" name="name" th:value="${category.name}" lass="form-control" placeholder="Enter name" required="required">
         </div>
+        <select name="parentId">
+            <option th:each="currentCategory : ${allCategories}"
+                    th:value="${currentCategory.id}"
+                    th:text="${currentCategory.name}">
+        </select>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

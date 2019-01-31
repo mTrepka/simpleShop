@@ -11,7 +11,9 @@ public interface CategoryService {
 
     void deleteCategory(int categoryId);
 
-    Category editAndSave(int id,String name);
+    Category editAndSave(int id, String name, int parentId);
 
     Category getById(int categoryId);
+
+    Category getRootCategory();
 }
