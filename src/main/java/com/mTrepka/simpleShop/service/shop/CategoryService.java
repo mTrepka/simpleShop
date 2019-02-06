@@ -16,4 +16,6 @@ public interface CategoryService {
     Category getById(int categoryId);
 
     Category getRootCategory();
+
+    Category getByName(String category);
 }

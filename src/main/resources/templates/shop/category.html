@@ -4,9 +4,22 @@
 <head th:include="fragments/defaultHead :: head">
 </head>
 <body>
-<div class="container clas">
+<div class="container clas parent">
     <div th:replace="fragments/menu :: menu"/>
-    <ul class="flex-container">
+    <div style="float:left">
+        <div th:switch="${category.parent.name}">
+            <div th:case="root"></div>
+            <div th:case="*">
+                <a th:href="${category.parent.name}" th:text="@{'<- '+${category.parent.name}}"/>
+            </div>
+        </div>
+        <p th:text="${category.name}"/>
+        <ul>
+            <li th:each="child : ${category.childCategory}">
+                <a th:href="${child.name}" th:text="${child.name}"/>
+        </ul>
+    </div>
+    <ul style="float: right; width: 80vw">
         <table class="table table-striped">
             <thead>
             <tr>

@@ -27,3 +27,24 @@
 
 .item-image{
     width: 100%;}
+
+.cusnav {
+    float: left;
+    width: 150px;
+}
+
+.cuscolumn {
+    float: left;
+}
+
+.parent {
+    width: 100%;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+#parent:after {
+    clear: both;
+    display: table;
+    content: '';
+}

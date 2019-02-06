@@ -2,11 +2,11 @@ package com.mTrepka.simpleShop.controller;
 
 
 import com.mTrepka.simpleShop.domain.shop.Cart;
+import com.mTrepka.simpleShop.domain.shop.Category;
 import com.mTrepka.simpleShop.domain.shop.Item;
-import com.mTrepka.simpleShop.service.AddressService;
 import com.mTrepka.simpleShop.service.UserService;
+import com.mTrepka.simpleShop.service.shop.CategoryService;
 import com.mTrepka.simpleShop.service.shop.ItemService;
-import com.mTrepka.simpleShop.service.shop.ShippingOptionService;
 import com.mTrepka.simpleShop.utility.CustomModel;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -26,9 +26,7 @@ public class AppController implements ApplicationController {
     private UserService userService;
     private ItemService itemService;
     private CustomModel customModel;
-    private ShippingOptionService shippingOptionService;
-    private AddressService addressService;
-
+    private CategoryService categoryService;
     @Override
     public ModelAndView getIndex() {
         return customModel.getCustomModelAndView("index");
@@ -97,8 +95,10 @@ public class AppController implements ApplicationController {
 
     @Override
     public ModelAndView getByCategory(@PathVariable("category") String category) {
+        Category cat = categoryService.getByName(category);
         return customModel.getCustomModelAndView("shop/category")
-                .addObject("items", itemService.getLastsItemsByCategory(category, 25));
+                .addObject("items", itemService.getLastsItemsByCategory(category, 25))
+                .addObject("category", cat);
     }
 
     @Override
