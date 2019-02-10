@@ -5,6 +5,7 @@ import com.mTrepka.simpleShop.domain.shop.Cart;
 import com.mTrepka.simpleShop.domain.shop.Category;
 import com.mTrepka.simpleShop.domain.shop.Item;
 import com.mTrepka.simpleShop.service.UserService;
+import com.mTrepka.simpleShop.service.shop.CartService;
 import com.mTrepka.simpleShop.service.shop.CategoryService;
 import com.mTrepka.simpleShop.service.shop.ItemService;
 import com.mTrepka.simpleShop.utility.CustomModel;
@@ -23,10 +24,12 @@ import java.util.Objects;
 @EnableAspectJAutoProxy
 @AllArgsConstructor
 public class AppController implements ApplicationController {
-    private UserService userService;
-    private ItemService itemService;
-    private CustomModel customModel;
-    private CategoryService categoryService;
+    private final UserService userService;
+    private final ItemService itemService;
+    private final CustomModel customModel;
+    private final CategoryService categoryService;
+    private final CartService cartService;
+
     @Override
     public ModelAndView getIndex() {
         return customModel.getCustomModelAndView("index");
@@ -79,7 +82,15 @@ public class AppController implements ApplicationController {
         return customModel.getCustomModelAndView("shop/cart")
                 .addObject("items", cart.getItems())
                 .addObject("value", cart.getValue());
-        //return CustomModel.getCustomModelAndView("shop/cart").addObject("items",userService.getCurrentUser().getCart().getItems()); //front do calculate himself
+    }
+
+    @Override
+    public ModelAndView getCartRemoveItem(@PathVariable("itemId") Integer id) {
+        Cart cart = userService.getCurrentUser().getCart();
+        cartService.removeItemByIdFromCart(cart, id.intValue());
+        return customModel.getCustomModelAndView("shop/cart")
+                .addObject("items", cart.getItems())
+                .addObject("value", cart.getValue());
     }
 
     @Override

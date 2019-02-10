@@ -2,17 +2,21 @@ package com.mTrepka.simpleShop.service.shop;
 
 
 import com.mTrepka.simpleShop.domain.shop.Cart;
+import com.mTrepka.simpleShop.domain.shop.ItemAmount;
 import com.mTrepka.simpleShop.repository.CartRepository;
+import com.mTrepka.simpleShop.repository.ItemAmountRepository;
 import com.mTrepka.simpleShop.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("cartService")
+@AllArgsConstructor
 public class CartServiceImpl implements CartService{
-    @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private UserService userService;
+    private final CartRepository cartRepository;
+    private final UserService userService;
+    private final ItemAmountRepository itemAmountRepository;
     @Override
     public Cart getCurrentUserCart() {
         return cartRepository.findByUser(userService.getCurrentUser());
@@ -21,5 +25,12 @@ public class CartServiceImpl implements CartService{
     @Override
     public void save(Cart c) {
         cartRepository.saveAndFlush(c);
+    }
+
+    @Override
+    public void removeItemByIdFromCart(Cart cart, int intValue) {
+        List<ItemAmount> items = cart.getItems();
+        items.remove(itemAmountRepository.getOne((long) intValue));
+        save(cart);
     }
 }

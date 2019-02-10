@@ -15,6 +15,7 @@
             <th scope="col">Category</th>
             <th scope="col">Amount</th>
             <th scope="col">Total</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
             <td th:text="${item.item.value}"/>
             <td th:text="${item.amount}"/>
             <td th:text="${item.amount}*${item.item.value}"/>
+            <td><a th:href="@{'remove-'+${item.id}}">Remove</a></td>
         </tr>
         <tr>
             <td />

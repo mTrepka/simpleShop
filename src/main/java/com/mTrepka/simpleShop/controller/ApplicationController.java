@@ -25,6 +25,9 @@ public interface ApplicationController {
 
     @GetMapping("/shop/cart/")
     ModelAndView getCart();
+
+    @GetMapping("/shop/cart/remove-{itemId}")
+    ModelAndView getCartRemoveItem(Integer id);
     @GetMapping("/shop/item/{itemId}")
     ModelAndView getItem(String itemId);
     @PostMapping("/shop/item/{itemId}")
