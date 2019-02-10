@@ -31,6 +31,7 @@ public class CartServiceImpl implements CartService{
     public void removeItemByIdFromCart(Cart cart, int intValue) {
         List<ItemAmount> items = cart.getItems();
         items.remove(itemAmountRepository.getOne((long) intValue));
+        itemAmountRepository.delete(itemAmountRepository.getOne((long) intValue));
         save(cart);
     }
 }

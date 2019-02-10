@@ -2,9 +2,11 @@ package com.mTrepka.simpleShop.domain.shop;
 
 
 import com.mTrepka.simpleShop.domain.User;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity(name = "ord")//app crashes with default entity name
 public class Order {
     @Column(name = "order_id")
@@ -16,47 +18,9 @@ public class Order {
     @OneToOne
     private Shipping shipping;
     @ManyToOne
+    @JoinColumn(name = "STATUS_ID")
     private OrderStatus status;
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Shipping getShipping() {
-        return shipping;
-    }
-
-    public void setShipping(Shipping shipping) {
-        this.shipping = shipping;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
 }

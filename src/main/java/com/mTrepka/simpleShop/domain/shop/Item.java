@@ -1,10 +1,13 @@
 package com.mTrepka.simpleShop.domain.shop;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
+@Data
 public class Item {
     @Column(name = "item_id")
     @Id
@@ -19,80 +22,4 @@ public class Item {
     private List<Order> orders;
     private byte[] image;
     private boolean active;
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", value=" + value +
-                ", description='" + description + '\'' +
-                ", category=" + category +
-                ", orders=" + orders +
-                ", active=" + active +
-                '}';
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

@@ -53,15 +53,11 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public void addItemToCart(long id, int amount) {
-        Cart cart = cartService.getCurrentUserCart();
         ItemAmount itemAmount = new ItemAmount();
         itemAmount.setAmount(amount);
         itemAmount.setItem(itemRepository.getById(id));
-        itemAmount.setCart(cart);
+        itemAmount.setCart(cartService.getCurrentUserCart());
         itemAmountRepository.saveAndFlush(itemAmount);
-        cart.getItems().add(itemAmount);
-        cartService.save(cart);
-        cart = cartService.getCurrentUserCart();
     }
 
     @Override

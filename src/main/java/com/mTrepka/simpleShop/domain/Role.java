@@ -1,30 +1,19 @@
 package com.mTrepka.simpleShop.domain;
 
-import javax.persistence.*;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-public
-class Role {
+@Data
+public class Role {
     @Id
     @GeneratedValue()
     @Column(name="role_id")
     private int id;
     @Column(name="role")
     private String role;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
